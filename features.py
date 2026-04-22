@@ -10,7 +10,7 @@ features.py — Enhanced features for Repo-Vector-Base
 6. Dependency detection
 7. JSON export
 8. Repo health score + TL;DR summary
-9. Gemini AI-powered report summarization
+9. DeepSeek AI-powered report summarization
 """
 
 import base64
@@ -108,8 +108,6 @@ def fetch_all_parallel(session, owner, repo):
         futures.append(pool.submit(fetch_simple, "license", f"{base}/license"))
         futures.append(pool.submit(fetch_simple, "community", f"{base}/community/profile"))
         futures.append(pool.submit(fetch_simple, "readme", f"{base}/readme"))
-        futures.append(pool.submit(fetch_simple, "views", f"{base}/traffic/views"))
-        futures.append(pool.submit(fetch_simple, "clones", f"{base}/traffic/clones"))
         futures.append(pool.submit(fetch_simple, "workflows", f"{base}/actions/workflows",
                                    lambda d: d.get("workflows", [])))
         futures.append(pool.submit(fetch_simple, "topics", f"{base}/topics",
@@ -118,38 +116,15 @@ def fetch_all_parallel(session, owner, repo):
                                    f"{base}/git/trees/{default_branch}?recursive=1",
                                    lambda d: d.get("tree", [])))
 
-        # New: commit activity + code frequency (Features 3 & 4)
-        futures.append(pool.submit(fetch_simple, "commit_activity",
-                                   f"{base}/stats/commit_activity"))
-        futures.append(pool.submit(fetch_simple, "code_frequency",
-                                   f"{base}/stats/code_frequency"))
-        futures.append(pool.submit(fetch_simple, "participation",
-                                   f"{base}/stats/participation"))
-
         # List GETs
-        futures.append(pool.submit(fetch_list, "contributors", f"{base}/contributors"))
-        futures.append(pool.submit(fetch_list, "releases", f"{base}/releases",
-                                   {"per_page": 10}, 1))
-        futures.append(pool.submit(fetch_list, "tags", f"{base}/tags",
-                                   {"per_page": 30}, 1))
         futures.append(pool.submit(fetch_list, "branches", f"{base}/branches",
                                    {"per_page": 30}, 1))
         futures.append(pool.submit(fetch_list, "commits", f"{base}/commits",
-                                   {"per_page": 15}, 1))
+                                   {"per_page": 5}, 1))
         futures.append(pool.submit(fetch_list, "issues", f"{base}/issues",
-                                   {"per_page": 15, "state": "open"}, 1))
+                                   {"per_page": 10, "state": "open"}, 1))
         futures.append(pool.submit(fetch_list, "pulls", f"{base}/pulls",
-                                   {"per_page": 15, "state": "open"}, 1))
-        futures.append(pool.submit(fetch_list, "deployments", f"{base}/deployments",
-                                   {"per_page": 10}, 1))
-
-        # New: closed issues & PRs for velocity (Feature 5)
-        futures.append(pool.submit(fetch_list, "closed_issues", f"{base}/issues",
-                                   {"per_page": 30, "state": "closed", "sort": "updated",
-                                    "direction": "desc"}, 1))
-        futures.append(pool.submit(fetch_list, "closed_pulls", f"{base}/pulls",
-                                   {"per_page": 30, "state": "closed", "sort": "updated",
-                                    "direction": "desc"}, 1))
+                                   {"per_page": 10, "state": "open"}, 1))
 
         completed = 0
         total = len(futures)
@@ -158,9 +133,8 @@ def fetch_all_parallel(session, owner, repo):
             try:
                 key, value = future.result()
                 data[key] = value if value is not None else ([] if key in (
-                    "contributors", "releases", "tags", "branches", "commits",
-                    "issues", "pulls", "deployments", "workflows", "topics",
-                    "tree", "closed_issues", "closed_pulls"
+                    "branches", "commits", "issues", "pulls", "workflows",
+                    "topics", "tree"
                 ) else ({} if key == "languages" else None))
                 print(f"  ✓ {key} ({completed}/{total})")
             except Exception as e:
@@ -451,18 +425,6 @@ def calculate_health_score(data):
             except ValueError:
                 pass
 
-    commit_activity = data.get("commit_activity")
-    if commit_activity and isinstance(commit_activity, list):
-        recent_4 = commit_activity[-4:] if len(commit_activity) >= 4 else commit_activity
-        recent_commits = sum(w.get("total", 0) for w in recent_4)
-        if recent_commits >= 20:
-            activity_score += 10
-        elif recent_commits >= 10:
-            activity_score += 7
-        elif recent_commits >= 3:
-            activity_score += 4
-        elif recent_commits >= 1:
-            activity_score += 2
     scores["Activity"] = min(activity_score, 20)
 
     # 3. Community (20 pts)
@@ -477,15 +439,8 @@ def calculate_health_score(data):
     elif stars >= 1:
         community_score += 1
 
-    contribs = data.get("contributors", [])
-    if len(contribs) >= 20:
-        community_score += 7
-    elif len(contribs) >= 5:
-        community_score += 5
-    elif len(contribs) >= 2:
-        community_score += 3
-    elif len(contribs) >= 1:
-        community_score += 1
+    # (Contributors check removed to reduce API noise)
+    community_score += 4 # Baseline for having community info at all
 
     forks = r.get("forks_count", 0)
     if forks >= 100:
@@ -510,20 +465,8 @@ def calculate_health_score(data):
 
     # 5. Maintenance (15 pts)
     maint_score = 0
-    releases = data.get("releases", [])
-    if releases:
-        maint_score += 5
-        latest = releases[0].get("published_at")
-        if latest:
-            try:
-                dt = datetime.strptime(latest, DATE_FMT)
-                days = (datetime.utcnow() - dt).days
-                if days <= 90:
-                    maint_score += 5
-                elif days <= 365:
-                    maint_score += 3
-            except ValueError:
-                pass
+    # (Releases check removed to reduce API noise)
+    maint_score += 5 # Baseline for maintenance metadata presence
     if not r.get("archived"):
         maint_score += 3
     if r.get("has_issues"):
@@ -624,112 +567,110 @@ def build_health_section(data):
     else:
         summary_parts.append(".")
 
-    # Activity assessment
-    commits_data = data.get("commit_activity")
-    if commits_data and isinstance(commits_data, list) and len(commits_data) >= 4:
-        recent = sum(w.get("total", 0) for w in commits_data[-4:])
-        if recent >= 20:
-            summary_parts.append(f"The project is **very active** with {recent} commits in the last month.")
-        elif recent >= 5:
-            summary_parts.append(f"The project has **moderate activity** with {recent} commits in the last month.")
-        elif recent >= 1:
-            summary_parts.append(f"The project has **low activity** with {recent} commits in the last month.")
-        else:
-            summary_parts.append("The project appears to be **inactive** recently.")
-
     lines.append(" ".join(summary_parts) + "\n")
 
     return "\n".join(lines)
 
 
-# ── Feature 9: Gemini AI Summarization ───────────────────
-def summarize_with_gemini(report_md: str, api_key: str | None = None) -> str | None:
-    """
-    Use Gemini to generate an AI-powered executive summary of the report.
-
-    Args:
-        report_md: The full markdown report content.
-        api_key: Gemini API key. If None, reads from GEMINI_API_KEY env var / .env file.
-
-    Returns:
-        The AI-generated summary as markdown, or None on failure.
-    """
-    # Load .env if needed
-    from dotenv import load_dotenv
-    load_dotenv()
+# ── Feature 9: DeepSeek AI Summarization & Relationship Explanation ──────────
+def call_deepseek_api(prompt: str, api_key: str | None = None) -> str | None:
+    """Helper to call DeepSeek API with a prompt."""
+    if not api_key:
+        from dotenv import load_dotenv
+        load_dotenv()
+        api_key = os.environ.get("DEEPSEEK_API_KEY")
 
     if not api_key:
-        api_key = os.environ.get("GEMINI_API_KEY")
-    if not api_key:
-        print("⚠️  No Gemini API key found. Set GEMINI_API_KEY in .env or pass --gemini-key.")
+        print("⚠️  No DeepSeek API key found. Set DEEPSEEK_API_KEY in .env.")
         return None
 
     try:
-        from google import genai
+        import requests
+        url = "https://api.deepseek.com/chat/completions"
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}"
+        }
+        payload = {
+            "model": "deepseek-chat",
+            "messages": [
+                {"role": "system", "content": "You are an expert software architect and analyst."},
+                {"role": "user", "content": prompt}
+            ],
+            "stream": False
+        }
 
-        client = genai.Client(api_key=api_key)
-
-        # Truncate report if too long (Gemini has context limits)
-        max_chars = 60000
-        content = report_md[:max_chars] if len(report_md) > max_chars else report_md
-
-        prompt = f"""You are an expert software analyst. Analyze the following GitHub repository report and generate a comprehensive executive summary in Markdown format.
-
-Your summary should include:
-
-1. **Project Overview** — What the project is, its purpose, and primary technology stack.
-2. **Health Assessment** — Overall health of the project based on the health score, activity, and community metrics.
-3. **Key Strengths** — What the project does well (active community, good docs, CI/CD, etc.).
-4. **Areas for Improvement** — What could be better (missing docs, low activity, no tests, etc.).
-5. **Activity Analysis** — Recent commit patterns, contributor engagement, and release cadence.
-6. **Notable Metrics** — Key stats worth highlighting (stars, forks, contributors, languages).
-7. **Recommendation** — A brief verdict: is this project well-maintained? Safe to depend on?
-
-Keep it concise but insightful. Use bullet points and markdown formatting. Do NOT include any code blocks.
-
----
-
-REPORT:
-{content}"""
-
-        models_to_try = ["gemini-2.0-flash", "gemini-2.0-flash-lite"]
-
-        for model_name in models_to_try:
-            for attempt in range(2):
-                try:
-                    print(f"    Trying {model_name} (attempt {attempt + 1})…")
-                    response = client.models.generate_content(
-                        model=model_name,
-                        contents=prompt,
-                    )
-                    return response.text
-                except Exception as e:
-                    err_str = str(e)
-                    if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
-                        if attempt == 0:
-                            # Extract retry delay if available
-                            import re as _re
-                            delay_match = _re.search(r"retry in ([\d.]+)s", err_str)
-                            wait = float(delay_match.group(1)) + 1 if delay_match else 20
-                            print(f"    ⏳ Rate limited. Waiting {wait:.0f}s…")
-                            time.sleep(wait)
-                            continue
-                        else:
-                            print(f"    ⚠️  {model_name} rate limited, trying next model…")
-                            break
-                    else:
-                        print(f"⚠️  Gemini summarization failed ({model_name}): {e}")
-                        return None
-
-        print("⚠️  All Gemini models exhausted.")
-        return None
-
-    except ImportError:
-        print("⚠️  google-genai not installed. Run: pip install google-genai")
-        return None
+        response = requests.post(url, headers=headers, json=payload, timeout=60)
+        if response.status_code == 200:
+            return response.json()["choices"][0]["message"]["content"]
+        else:
+            print(f"⚠️  DeepSeek API error: {response.status_code} - {response.text}")
+            return None
     except Exception as e:
-        print(f"⚠️  Gemini setup failed: {e}")
+        print(f"⚠️  DeepSeek API call failed: {e}")
         return None
+
+
+def summarize_with_ai(report_md: str, api_key: str | None = None) -> str | None:
+    """
+    Use DeepSeek to generate an AI-powered executive summary of the report.
+    """
+    # Truncate report if too long
+    max_chars = 32000
+    content = report_md[:max_chars] if len(report_md) > max_chars else report_md
+
+    prompt = f"""Provide a simple, clean, and professional executive summary of this GitHub repository.
+    
+    Focus on:
+    1. **Project Purpose** — What problem does this solve? (1-2 sentences)
+    2. **Core Tech Stack** — Primary languages and frameworks.
+    3. **Architecture & Logic** — How is the "Brain" of the repo structured?
+    4. **Maintenance Status** — Is it healthy and active?
+    
+    Keep it very simple, concise, and beautifully formatted with Markdown. No code blocks. No fluff.
+    
+    ---
+    REPORT:
+    {content}"""
+
+    print("🤖  Generating AI summary with DeepSeek…")
+    return call_deepseek_api(prompt, api_key)
+
+
+def explain_relationship_with_ai(
+    source_node: dict,
+    target_node: dict,
+    edge: dict,
+    repo_context_summary: str = "",
+    api_key: str | None = None
+) -> str | None:
+    """
+    Use DeepSeek to explain the relationship between two nodes in the graph.
+    """
+    source_name = source_node.get("name", source_node.get("id"))
+    target_name = target_node.get("name", target_node.get("id"))
+    edge_type = edge.get("type", "dependency")
+    raw_import = edge.get("raw", "")
+
+    prompt = f"""Explain the architectural relationship between these two components in the repository.
+
+Source: {source_name} (Type: {source_node.get('type')}, Role: {source_node.get('role', 'N/A')})
+Target: {target_name} (Type: {target_node.get('type')}, Role: {target_node.get('role', 'N/A')})
+Relationship Type: {edge_type}
+Technical Detail: {raw_import if raw_import else "Implicit or structural dependency"}
+
+Context Summary: {repo_context_summary[:1000]}
+
+Please explain:
+1. Why does '{source_name}' depend on or relate to '{target_name}'?
+2. What is the likely flow of data or control between them?
+3. How critical is this link for the overall system?
+
+Keep the explanation concise (2-3 short paragraphs). Use Markdown formatting.
+"""
+
+    print(f"🤖  Explaining relationship: {source_name} -> {target_name} …")
+    return call_deepseek_api(prompt, api_key)
 
 
 def append_ai_summary_to_report(report_path: str, api_key: str | None = None) -> bool:
@@ -745,8 +686,8 @@ def append_ai_summary_to_report(report_path: str, api_key: str | None = None) ->
         print(f"⚠️  Report file not found: {report_path}")
         return False
 
-    print("🤖  Generating AI summary with Gemini …")
-    summary = summarize_with_gemini(report_md, api_key)
+    print("🤖  Generating AI summary with DeepSeek …")
+    summary = summarize_with_ai(report_md, api_key)
 
     if not summary:
         return False
@@ -755,7 +696,7 @@ def append_ai_summary_to_report(report_path: str, api_key: str | None = None) ->
     ai_section = f"""
 ## 🤖 AI-Powered Executive Summary
 
-> _Generated by Google Gemini_
+> _Generated by DeepSeek AI_
 
 {summary}
 

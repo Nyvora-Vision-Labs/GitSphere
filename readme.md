@@ -18,7 +18,7 @@ pip install -r requirements.txt
 cp .env.example .env
 # Edit .env with your keys:
 #   GITHUB_TOKEN=ghp_xxxx        (for higher rate limits)
-#   GEMINI_API_KEY=AIzaSy...     (for AI summaries)
+#   DEEPSEEK_API_KEY=sk-xxxx      (for AI summaries and analysis)
 
 # 4. Generate a report
 python repo_report.py facebook/react
@@ -43,7 +43,7 @@ python repo_report.py <owner/repo or GitHub URL> [options]
 | `--json`, `-j`   | Also export raw API data as JSON                      | off             |
 | `--graph`, `-g`  | Generate knowledge graph + LLM context document       | off             |
 | `--max-files`    | Max source files to fetch for graph (default: 250)    | 250             |
-| `--gemini-key`   | Gemini API key for AI-powered summary                 | `$GEMINI_API_KEY` |
+| `--deepseek-key` | DeepSeek API key for AI-powered summary               | `$DEEPSEEK_API_KEY` |
 | `--no-ai`        | Skip AI summary generation                            | off             |
 
 ---
@@ -77,7 +77,7 @@ python repo_report.py facebook/react --graph --no-ai --token $(gh auth token)
 ### Using environment variables (no flags needed)
 ```bash
 export GITHUB_TOKEN=ghp_xxxx
-export GEMINI_API_KEY=AIzaSy...
+export DEEPSEEK_API_KEY=sk-xxxx
 python repo_report.py django/django --graph --json
 ```
 
@@ -98,7 +98,7 @@ python repo_report.py django/django --graph --json
 | Section                       | Details                                              |
 |------------------------------ |----------------------------------------------------- |
 | 🏆 Health Score + TL;DR       | 0–100 score across 6 dimensions + AI summary         |
-| 🤖 AI Executive Summary      | Gemini-powered analysis of strengths & weaknesses    |
+| 🤖 AI Executive Summary      | DeepSeek-powered analysis of strengths & weaknesses  |
 | 📋 Overview                  | Description, URL, visibility, dates                  |
 | ⭐ Statistics                 | Stars, forks, watchers, issues, repo size            |
 | 🏷️ Topics                    | Repository topics                                    |
