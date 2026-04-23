@@ -70,7 +70,11 @@ SKIP_PATTERNS = [
     ".woff", ".ttf", ".eot", ".mp3", ".mp4",
     ".zip", ".tar", ".gz", ".jar", ".exe",
     "package-lock.json", "yarn.lock", "Pipfile.lock",
-    "go.sum", "Cargo.lock",
+    "go.sum", "Cargo.lock", "pnpm-lock.yaml",
+    ".git/", ".DS_Store", "bower_components/", "tmp/", "temp/",
+    ".cache/", ".next/", ".out/", "out/", ".turbo/", ".vercel/",
+    ".expo/", ".gradle/", "target/", "obj/", "bin/",
+    ".idea/", ".vscode/", ".project", ".classpath",
 ]
 
 PRIORITY_FILES = [
@@ -159,21 +163,23 @@ def ai_prune_tree(paths, repo_desc="", api_key=None):
     
     prompt = f"""
     Analyze the file paths for the repository '{repo_desc}'.
-    Select ONLY the most critical files that form the "DNA" of this project.
     
-    These are the minimal set of files required for a developer to understand the core logic 
-    and recreate the project's functionality from scratch.
+    CRITICAL TASK: Select ONLY the absolute core files that define the project's architecture and logic.
+    You must filter out at least 70-80% of files if the list is large.
     
-    Focus on:
-    - Primary entry points and bootstrap files.
-    - Core logic, algorithms, and business rules.
-    - Main data models and API definitions.
-    - Essential configuration that defines the project structure.
+    Keep:
+    - Primary entry points (main.py, app.js, index.ts, etc.)
+    - Core logic modules and business rules.
+    - Principal data models or schema definitions.
+    - Essential configuration files that define the build/runtime.
     
-    STRICTLY IGNORE:
-    - boilerplate, tests, docs, assets, and minor utilities.
+    STRICTLY EXCLUDE:
+    - Tests, documentation, assets, boilerplate, minor utilities.
+    - Any file that is not vital to understanding the "Brain" of the repo.
+    - Redundant or repetitive files.
     
-    RETURN ONLY a JSON array of the paths. No preamble.
+    RETURN ONLY a JSON array of strings containing the selected paths. 
+    No conversation, no markdown blocks, just the raw JSON array.
     
     PATHS:
     {json.dumps(pruned_input)}

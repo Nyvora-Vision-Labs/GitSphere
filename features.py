@@ -720,3 +720,74 @@ def append_ai_summary_to_report(report_path: str, api_key: str | None = None) ->
 
     print("✅  AI summary added to report!")
     return True
+
+def explain_node_with_ai(node, repo_context_summary="", api_key=None, file_content=""):
+    """
+    Uses DeepSeek to analyze a single node (file or module).
+    """
+    if not api_key:
+        return "DeepSeek API key is required for node analysis."
+
+    # Truncate content for prompt safety
+    code_snippet = ""
+    if file_content:
+        max_chars = 15000
+        code_snippet = file_content if len(file_content) < max_chars else file_content[:max_chars] + "\n... [content truncated] ..."
+
+    prompt = f"""
+Analyze this {node.get('type', 'file')} from the repository.
+
+CONTEXT:
+{repo_context_summary}
+
+METADATA:
+- Name: {node.get('name') or node.get('id')}
+- Role: {node.get('role', 'source')}
+- Path: {node.get('id')}
+- Connections: {node.get('import_degree', 0)}
+
+FILE CODE:
+\"\"\"
+{code_snippet if code_snippet else "Code content unavailable for this node."}
+\"\"\"
+
+Provide a deep architectural summary of this file/module. 
+Explain:
+1. Its core responsibility and business logic.
+2. How it interacts with other parts of the system based on the code provided.
+3. Any significant architectural patterns or noteworthy logic found in the code.
+
+Keep it concise (3-4 paragraphs) but technically rich. Use Markdown.
+"""
+
+    try:
+        explanation = call_deepseek_api(prompt, api_key=api_key)
+        return explanation
+    except Exception as e:
+        return f"Error during AI analysis: {str(e)}"
+
+def simplify_explanation_with_ai(text, api_key=None):
+    """
+    Takes a technical AI explanation and simplifies it for a lower level.
+    """
+    if not api_key:
+        return "DeepSeek API key is required."
+
+    prompt = f"""
+I have a technical architectural explanation below. Please explain it in very simple, "lower-level" terms so that even someone with minimal coding knowledge could understand the core concept. 
+
+- Use simple analogies.
+- Avoid jargon or explain it if used.
+- Keep it friendly and concise.
+
+TECHNICAL EXPLANATION:
+\"\"\"
+{text}
+\"\"\"
+
+Simplified Version:
+"""
+    try:
+        return call_deepseek_api(prompt, api_key=api_key)
+    except Exception as e:
+        return f"Error during simplification: {str(e)}"

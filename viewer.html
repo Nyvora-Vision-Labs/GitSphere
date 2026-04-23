@@ -30,7 +30,6 @@
       height: 100vh;
     }
 
-    /* Top bar */
     .top-bar {
       position: fixed;
       top: 0;
@@ -52,7 +51,6 @@
       font-size: 16px;
       font-weight: 600;
       background: linear-gradient(135deg, #6366f1, #a855f7);
-      -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       white-space: nowrap;
     }
@@ -73,6 +71,10 @@
       width: 240px;
       outline: none;
       transition: border-color 0.2s;
+    }
+
+    .search-box:focus {
+      border-color: #6366f1;
     }
 
     .control-group {
@@ -122,10 +124,6 @@
 
     .ghost-btn:hover {
       background: rgba(255, 255, 255, 0.09);
-    }
-
-    .search-box:focus {
-      border-color: #6366f1;
     }
 
     .filter-btn {
@@ -189,9 +187,9 @@
       position: fixed;
       top: 84px;
       right: 0;
-      width: 360px;
+      width: 380px;
       height: calc(100vh - 84px);
-      background: rgba(10, 10, 26, 0.92);
+      background: rgba(10, 10, 26, 0.95);
       backdrop-filter: blur(20px);
       border-left: 1px solid rgba(255, 255, 255, 0.06);
       padding: 20px;
@@ -287,7 +285,129 @@
       cursor: pointer;
     }
 
-    /* Drop zone */
+    /* AI panel */
+    .ai-panel {
+      margin-top: 16px;
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .ai-panel-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      background: rgba(99, 102, 241, 0.1);
+      border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+      font-size: 12px;
+      font-weight: 600;
+      color: #a5b4fc;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ai-spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(99, 102, 241, 0.3);
+      border-top-color: #818cf8;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .ai-panel-body {
+      padding: 14px;
+      font-size: 13px;
+      color: #cfd4f5;
+      line-height: 1.7;
+    }
+
+    .ai-panel-body p {
+      margin-bottom: 10px;
+    }
+
+    .ai-panel-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .ai-panel-body strong {
+      color: #e0e4ff;
+    }
+
+    .ai-panel-body ul {
+      padding-left: 16px;
+      margin-bottom: 10px;
+    }
+
+    .ai-panel-body li {
+      margin-bottom: 5px;
+    }
+
+    .ai-panel-body h1,
+    .ai-panel-body h2,
+    .ai-panel-body h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #c4b5fd;
+      margin: 12px 0 6px;
+    }
+
+    .ai-panel-actions {
+      padding: 10px 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      gap: 8px;
+    }
+
+    .ai-btn {
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .ai-btn:hover {
+      background: rgba(99, 102, 241, 0.35);
+      color: #e0e4ff;
+    }
+
+    .ai-btn.ghost {
+      background: rgba(255, 255, 255, 0.05);
+      color: #9ea4c9;
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .ai-btn.ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .ai-error {
+      color: #f87171;
+      font-size: 13px;
+      padding: 14px;
+    }
+
+    .no-key-note {
+      padding: 14px;
+      font-size: 12px;
+      color: #808098;
+      font-style: italic;
+    }
+
+    /* Drop overlay */
     .drop-overlay {
       position: fixed;
       inset: 0;
@@ -302,24 +422,6 @@
 
     .drop-overlay.show {
       display: flex;
-    }
-
-    .drop-overlay .drop-box {
-      width: 400px;
-      height: 200px;
-      border: 2px dashed #6366f1;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 12px;
-      color: #c4b5fd;
-      font-size: 15px;
-    }
-
-    .drop-overlay .drop-box .icon {
-      font-size: 48px;
     }
 
     .setup-shell {
@@ -425,60 +527,6 @@
       margin-bottom: 7px;
       font-size: 12px;
       color: #aeb3d6;
-    }
-
-    /* AI Explanation styling */
-    .ai-explanation-box {
-      margin-top: 16px;
-      padding: 14px;
-      background: rgba(99, 102, 241, 0.08);
-      border: 1px solid rgba(99, 102, 241, 0.2);
-      border-radius: 12px;
-      font-size: 13px;
-      color: #cfd4f5;
-      line-height: 1.6;
-    }
-
-    .ai-explanation-box h4 {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #818cf8;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .ai-explanation-box .actions {
-      margin-top: 12px;
-      display: flex;
-      gap: 8px;
-    }
-
-    .ai-btn {
-      background: #6366f1;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .ai-btn:hover {
-      background: #4f46e5;
-    }
-
-    .ai-btn.secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: #e0e0f0;
-    }
-
-    .ai-btn.secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
     }
 
     .setup-input {
@@ -627,23 +675,31 @@
       max-height: 450px;
       overflow-y: auto;
     }
-    .ai-summary h1, .ai-summary h2, .ai-summary h3 {
+
+    .ai-summary h1,
+    .ai-summary h2,
+    .ai-summary h3 {
       font-size: 15px;
       margin: 18px 0 10px;
       color: #fff;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       padding-bottom: 4px;
     }
+
     .ai-summary p {
       margin-bottom: 12px;
     }
-    .ai-summary ul, .ai-summary ol {
+
+    .ai-summary ul,
+    .ai-summary ol {
       padding-left: 20px;
       margin-bottom: 12px;
     }
+
     .ai-summary li {
       margin-bottom: 6px;
     }
+
     .ai-summary strong {
       color: #fff;
     }
@@ -662,6 +718,21 @@
       font-size: 11px;
     }
 
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 2px 0;
+      color: #a0a0c0;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    /* Summary card */
     .summary-card {
       position: fixed;
       top: 96px;
@@ -734,20 +805,6 @@
       color: #a7abd1;
     }
 
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 2px 0;
-      color: #a0a0c0;
-    }
-
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-
     /* Tooltip */
     .node-tooltip {
       position: fixed;
@@ -780,7 +837,11 @@
       display: flex;
     }
 
-    @media (max-width: 1100px) {
+    input[type="file"] {
+      display: none;
+    }
+
+    @media (max-width:1100px) {
       .stats-text {
         margin-left: 0;
         width: 100%;
@@ -802,7 +863,7 @@
       }
     }
 
-    @media (max-width: 820px) {
+    @media (max-width:820px) {
       .top-bar {
         padding: 12px;
       }
@@ -837,10 +898,6 @@
         height: calc(100vh - 140px);
       }
     }
-
-    input[type="file"] {
-      display: none;
-    }
   </style>
 </head>
 
@@ -859,24 +916,18 @@
     </div>
     <div id="filterContainer" class="hidden"></div>
     <button class="load-btn" id="openLoaderBtn">📂 Load Graph</button>
-    <button class="ghost-btn" id="downloadGraphBtn" hidden>
-      Save _graph.json
-    </button>
+    <button class="ghost-btn" id="downloadGraphBtn" hidden>Save _graph.json</button>
     <input type="file" id="fileInput" accept=".json" />
     <span class="stats-text" id="statsText">Drop a _graph.json file or click Load</span>
   </div>
 
   <div id="graph-container"></div>
-  <div class="empty-state" id="emptyState">
-    No nodes match the current filters.
-  </div>
+  <div class="empty-state" id="emptyState">No nodes match the current filters.</div>
 
   <div class="summary-card" id="summaryCard">
     <h2>Readable Graphs</h2>
-    <p id="summaryIntro">
-      Load a graph JSON to see a module overview first, then drill into key
-      files and full structure when needed.
-    </p>
+    <p id="summaryIntro">Load a graph JSON to see a module overview first, then drill into key files and full structure
+      when needed.</p>
     <div class="repo-snapshot hidden" id="repoSnapshot"></div>
     <div class="summary-section-title">Why This View</div>
     <div class="summary-list" id="summaryList"></div>
@@ -892,14 +943,11 @@
       <div class="setup-header">
         <div>
           <h2>Load a Repository Graph</h2>
-          <p>
-            Choose whether to upload an existing graph JSON or build one
-            directly from a GitHub repo using server credentials or your own.
-          </p>
+          <p>Choose whether to upload an existing graph JSON or build one directly from a GitHub repo using server
+            credentials or your own.</p>
         </div>
         <button class="setup-close" id="closeOverlayBtn">✕</button>
       </div>
-
       <div class="setup-grid">
         <div class="setup-card">
           <h3>Source</h3>
@@ -913,7 +961,6 @@
               <span>Open an existing `_graph.json` from disk.</span>
             </button>
           </div>
-
           <h3>Credentials</h3>
           <div class="mode-switch" id="credentialModeSwitch">
             <button class="mode-btn active" data-credential-mode="server">
@@ -925,97 +972,61 @@
               <span>Provide your own GitHub token and DeepSeek API key.</span>
             </button>
           </div>
-
           <div class="inline-pills" id="serverCredentialPills">
-            <div class="inline-pill" id="serverGitHubPill">
-              GitHub: checking…
-            </div>
-            <div class="inline-pill" id="serverDeepSeekPill">
-              DeepSeek: checking…
-            </div>
+            <div class="inline-pill" id="serverGitHubPill">GitHub: checking…</div>
+            <div class="inline-pill" id="serverDeepSeekPill">DeepSeek: checking…</div>
           </div>
-
           <div class="setup-block" id="repoFields">
             <div class="setup-field">
               <label class="setup-label" for="repoInput">GitHub repo</label>
               <input class="setup-input" id="repoInput" placeholder="owner/repo or https://github.com/owner/repo" />
-              <div class="setup-help">
-                Public repos work with anonymous GitHub access too, but tokens
-                help with rate limits and private repos.
-              </div>
+              <div class="setup-help">Public repos work with anonymous GitHub access too, but tokens help with rate
+                limits and private repos.</div>
             </div>
-
             <div class="setup-field">
               <label class="setup-label" for="maxFilesInput">Max files to analyze</label>
               <input class="setup-input" id="maxFilesInput" type="number" min="1" max="1000" value="250" />
             </div>
-
             <div class="setup-field">
               <label class="checkbox-row" for="includeAiCheckbox">
                 <input id="includeAiCheckbox" type="checkbox" checked />
-                <span>
-                  Include DeepSeek summary when a DeepSeek key is available.
-                </span>
+                <span>Include DeepSeek summary when a DeepSeek key is available.</span>
               </label>
             </div>
           </div>
-
           <div class="setup-block hidden" id="uploadFields">
             <div class="setup-field">
               <label class="setup-label">Upload graph JSON</label>
-              <button class="ghost-btn" id="chooseJsonBtn">
-                Choose `_graph.json`
-              </button>
-              <div class="setup-help" id="selectedFileName">
-                No file selected yet.
-              </div>
+              <button class="ghost-btn" id="chooseJsonBtn">Choose `_graph.json`</button>
+              <div class="setup-help" id="selectedFileName">No file selected yet.</div>
             </div>
           </div>
-
           <div class="setup-block hidden" id="userCredentialFields">
             <div class="setup-field">
               <label class="setup-label" for="githubTokenInput">Your GitHub token</label>
               <input class="setup-input" id="githubTokenInput" type="password" placeholder="ghp_..." />
             </div>
-
             <div class="setup-field">
               <label class="setup-label" for="deepseekKeyInput">Your DeepSeek API key</label>
               <input class="setup-input" id="deepseekKeyInput" type="password" placeholder="sk-..." />
-              <div class="setup-help">
-                Optional for graph generation, but required if you want the AI
-                summary and relationship analysis.
-              </div>
+              <div class="setup-help">Optional for graph generation, but required if you want the AI summary and
+                relationship analysis.</div>
             </div>
           </div>
-
           <div class="setup-actions">
-            <button class="load-btn" id="primaryLoadBtn">
-              Build from GitHub
-            </button>
-            <button class="ghost-btn" id="secondaryUploadBtn">
-              Pick JSON File
-            </button>
+            <button class="load-btn" id="primaryLoadBtn">Build from GitHub</button>
+            <button class="ghost-btn" id="secondaryUploadBtn">Pick JSON File</button>
           </div>
-
           <div class="status-note hidden" id="loaderStatus"></div>
         </div>
-
         <div class="setup-card">
           <h3>How It Works</h3>
-          <div class="status-note">
-            <strong>Option 1:</strong> Build from GitHub using either the
-            server's credentials or your own. The app fetches the repo, builds
-            the graph JSON, and opens the readable views automatically.
-          </div>
-          <div class="status-note">
-            <strong>Option 2:</strong> Upload an existing graph JSON. This is
-            the fastest path when you already generated a `_graph.json` from
-            the CLI.
-          </div>
-          <div class="status-note warn" id="backendHint">
-            GitHub loading needs the local web backend. If this page is opened
-            directly as a file, upload mode still works.
-          </div>
+          <div class="status-note"><strong>Option 1:</strong> Build from GitHub using either the server's credentials or
+            your own. The app fetches the repo, builds the graph JSON, and opens the readable views automatically.</div>
+          <div class="status-note"><strong>Option 2:</strong> Upload an existing graph JSON. This is the fastest path
+            when you already generated a `_graph.json` from the CLI.</div>
+          <div class="status-note warn" id="backendHint">GitHub loading needs the local web backend. If this page is
+            opened directly as a file, upload mode still works.</div>
         </div>
       </div>
     </div>
@@ -1025,106 +1036,56 @@
   <div class="node-tooltip" id="tooltip"></div>
 
   <script>
+    /* ─── Color constants ─── */
+    // All spheres use exactly 3 colors: red, green, blue
+    const SPHERE_PALETTE = ["#e8453c", "#3ecf6e", "#3b8ef5"];
+    function getSphereColor(node) {
+      if (node.type === "module") return SPHERE_PALETTE[1];      // green for modules
+      if (node.is_entry_point) return SPHERE_PALETTE[2];       // blue for entry points
+      if (node.role === "test") return SPHERE_PALETTE[0];        // red for tests
+
+      let h = 0;
+      const s = String(node.id || node.name || "");
+      for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+      return SPHERE_PALETTE[h % SPHERE_PALETTE.length];
+    }
+
     const EXT_COLORS = {
-      ".py": "#3572A5",
-      ".js": "#f1e05a",
-      ".ts": "#3178c6",
-      ".tsx": "#3178c6",
-      ".jsx": "#f1e05a",
-      ".go": "#00ADD8",
-      ".rs": "#dea584",
-      ".java": "#b07219",
-      ".rb": "#CC342D",
-      ".c": "#555555",
-      ".cpp": "#f34b7d",
-      ".h": "#555555",
-      ".swift": "#F05138",
-      ".css": "#563d7c",
-      ".html": "#e34c26",
-      ".json": "#40a070",
-      ".yml": "#cb171e",
-      ".yaml": "#cb171e",
-      ".md": "#083fa1",
-      ".toml": "#9c4221",
-      ".xml": "#0060ac",
-      ".sh": "#89e051",
-      ".dockerfile": "#384d54",
-      directory: "#6366f1",
-      default: "#808098",
+      ".py": "#3572A5", ".js": "#f1e05a", ".ts": "#3178c6", ".tsx": "#3178c6",
+      ".jsx": "#f1e05a", ".go": "#00ADD8", ".rs": "#dea584", ".java": "#b07219",
+      ".rb": "#CC342D", ".c": "#555555", ".cpp": "#f34b7d", ".h": "#555555",
+      ".swift": "#F05138", ".css": "#563d7c", ".html": "#e34c26", ".json": "#40a070",
+      ".yml": "#cb171e", ".yaml": "#cb171e", ".md": "#083fa1", ".toml": "#9c4221",
+      ".xml": "#0060ac", ".sh": "#89e051", ".dockerfile": "#384d54",
+      directory: "#6366f1", default: "#808098"
     };
-
-    const WRAPPER_DIRS = new Set([
-      "src",
-      "lib",
-      "app",
-      "apps",
-      "packages",
-      "services",
-      "modules",
-      "internal",
-      "components",
-      "cmd",
-    ]);
-    const DIR_COLOR = "#6366f1";
-    const MODULE_COLOR = "#fb923c";
-    const ENTRY_COLOR = "#f59e0b";
-    const IMPORT_EDGE_COLOR = "rgba(139, 92, 246, 0.45)";
-    const MODULE_EDGE_COLOR = "rgba(251, 146, 60, 0.55)";
-    const CONTAINS_EDGE_COLOR = "rgba(99, 102, 241, 0.12)";
-    const ROLE_COLORS = {
-      config: "#14b8a6",
-      automation: "#38bdf8",
-      test: "#ef4444",
-      docs: "#22c55e",
-    };
+    const WRAPPER_DIRS = new Set(["src", "lib", "app", "apps", "packages", "services", "modules", "internal", "components", "cmd"]);
+    const DIR_COLOR = "#3b8ef5";
+    const MODULE_COLOR = "#f5c842";
+    const ENTRY_COLOR = "#3ecf6e";
+    // All edges are white and pop out better
+    const IMPORT_EDGE_COLOR = "rgba(255,255,255,0.85)";
+    const MODULE_EDGE_COLOR = "rgba(255,255,255,0.95)";
+    const CONTAINS_EDGE_COLOR = "rgba(255,255,255,0.40)";
+    const ROLE_COLORS = { config: "#3b8ef5", automation: "#f5c842", test: "#e8453c", docs: "#3ecf6e" };
     const VIEW_CONFIG = {
-      overview: {
-        title: "Architecture Overview",
-        sectionTitle: "Modules to Explore",
-        fallbackDescription:
-          "High-level architecture grouped into modules so you can see the repo shape before diving into files.",
-      },
-      focus: {
-        title: "Key Files",
-        sectionTitle: "Files to Explore",
-        fallbackDescription:
-          "A smaller dependency graph centered on entry points and high-traffic files.",
-      },
-      structure: {
-        title: "Repo Structure",
-        sectionTitle: "Current Hotspots",
-        fallbackDescription:
-          "The full graph including folder structure and file dependencies.",
-      },
+      overview: { title: "Architecture Overview", sectionTitle: "Modules to Explore", fallbackDescription: "High-level architecture grouped into modules so you can see the repo shape before diving into files." },
+      focus: { title: "Key Files", sectionTitle: "Files to Explore", fallbackDescription: "A smaller dependency graph centered on entry points and high-traffic files." },
+      structure: { title: "Repo Structure", sectionTitle: "Current Hotspots", fallbackDescription: "The full graph including folder structure and file dependencies." }
     };
 
-    let graphData = null;
-    let graphInstance = null;
-    let currentView = "overview";
-    let currentViewMeta = {};
-    let currentNodes = [];
-    let currentLinks = [];
-    let visibleNodes = [];
-    let visibleLinks = [];
-    let activeFilters = new Set();
-    let highlightNodeIds = new Set();
-    let highlightLinkIds = new Set();
-    let selectedNodeId = null;
-    let selectedLinkKey = null;
-    let currentGraphOrigin = "unknown";
-    let searchQuery = "";
-    let lastSearchMatches = [];
-    let fullNodeLookup = new Map();
-    let repoContext = null;
-    let backendAvailable = false;
-    let serverCredentialState = {
-      github_token_configured: false,
-      deepseek_key_configured: false,
-    };
-    let sourceMode = "repo";
-    let credentialMode = "server";
-    let selectedUploadFile = null;
+    /* ─── State ─── */
+    let graphData = null, graphInstance = null, currentView = "overview";
+    let currentViewMeta = {}, currentNodes = [], currentLinks = [];
+    let visibleNodes = [], visibleLinks = [];
+    let activeFilters = new Set(), highlightNodeIds = new Set(), highlightLinkIds = new Set();
+    let selectedNodeId = null, selectedLinkKey = null, currentGraphOrigin = "unknown";
+    let searchQuery = "", lastSearchMatches = [], fullNodeLookup = new Map();
+    let repoContext = null, backendAvailable = false;
+    let serverCredentialState = { github_token_configured: false, deepseek_key_configured: false };
+    let sourceMode = "repo", credentialMode = "server", selectedUploadFile = null;
 
+    /* ─── DOM refs ─── */
     const searchInput = document.getElementById("searchInput");
     const statsText = document.getElementById("statsText");
     const filterContainer = document.getElementById("filterContainer");
@@ -1141,14 +1102,10 @@
     const githubTokenInput = document.getElementById("githubTokenInput");
     const deepseekKeyInput = document.getElementById("deepseekKeyInput");
     const sourceModeSwitch = document.getElementById("sourceModeSwitch");
-    const credentialModeSwitch = document.getElementById(
-      "credentialModeSwitch"
-    );
+    const credentialModeSwitch = document.getElementById("credentialModeSwitch");
     const repoFields = document.getElementById("repoFields");
     const uploadFields = document.getElementById("uploadFields");
-    const userCredentialFields = document.getElementById(
-      "userCredentialFields"
-    );
+    const userCredentialFields = document.getElementById("userCredentialFields");
     const primaryLoadBtn = document.getElementById("primaryLoadBtn");
     const secondaryUploadBtn = document.getElementById("secondaryUploadBtn");
     const downloadGraphBtn = document.getElementById("downloadGraphBtn");
@@ -1157,247 +1114,79 @@
     const serverGitHubPill = document.getElementById("serverGitHubPill");
     const serverDeepSeekPill = document.getElementById("serverDeepSeekPill");
 
-    function escapeHtml(value) {
-      return String(value ?? "").replace(
-        /[&<>"']/g,
-        (char) =>
-        ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;",
-        }[char])
-      );
+    /* ─── Helpers ─── */
+    function escapeHtml(v) {
+      const map = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+      return String(v ?? "").replace(/[&<>"']/g, c => map[c]);
     }
-
     function formatBytes(bytes) {
       if (!bytes) return "0 B";
       if (bytes < 1024) return `${bytes} B`;
-      const kb = bytes / 1024;
-      if (kb < 1024) return `${kb >= 10 ? kb.toFixed(0) : kb.toFixed(1)} KB`;
-      const mb = kb / 1024;
-      if (mb < 1024) return `${mb >= 10 ? mb.toFixed(0) : mb.toFixed(1)} MB`;
-      const gb = mb / 1024;
-      return `${gb >= 10 ? gb.toFixed(0) : gb.toFixed(1)} GB`;
+      const kb = bytes / 1024; if (kb < 1024) return `${kb >= 10 ? kb.toFixed(0) : kb.toFixed(1)} KB`;
+      const mb = kb / 1024; if (mb < 1024) return `${mb >= 10 ? mb.toFixed(0) : mb.toFixed(1)} MB`;
+      const gb = mb / 1024; return `${gb >= 10 ? gb.toFixed(0) : gb.toFixed(1)} GB`;
     }
-
-    function formatNumber(value) {
-      return Number(value || 0).toLocaleString();
-    }
-
-    function graphDownloadFilename() {
-      const repoName =
-        repoContext?.full_name ||
-        graphData?.repository ||
-        "repo_vector_base_graph";
-      return `${repoName.replace(/[\\/]+/g, "_")}_graph.json`;
-    }
-
-    function setLoaderStatus(message = "", tone = "") {
-      loaderStatus.textContent = message;
-      loaderStatus.className = "status-note";
-      if (!message) {
-        loaderStatus.classList.add("hidden");
-        return;
-      }
+    function formatNumber(v) { return Number(v || 0).toLocaleString(); }
+    function setLoaderStatus(msg = "", tone = "") {
+      loaderStatus.textContent = msg; loaderStatus.className = "status-note";
+      if (!msg) { loaderStatus.classList.add("hidden"); return; }
       if (tone) loaderStatus.classList.add(tone);
     }
-
     function updateServerCredentialPills() {
-      if (!backendAvailable) {
-        serverGitHubPill.textContent = "GitHub: backend unavailable";
-        serverDeepSeekPill.textContent = "DeepSeek: backend unavailable";
-        return;
-      }
-      serverGitHubPill.textContent =
-        serverCredentialState.github_token_configured
-          ? "GitHub: server token configured"
-          : "GitHub: anonymous/server token not set";
-      serverDeepSeekPill.textContent =
-        serverCredentialState.deepseek_key_configured
-          ? "DeepSeek: server key configured"
-          : "DeepSeek: no server key";
+      if (!backendAvailable) { serverGitHubPill.textContent = "GitHub: backend unavailable"; serverDeepSeekPill.textContent = "DeepSeek: backend unavailable"; return; }
+      serverGitHubPill.textContent = serverCredentialState.github_token_configured ? "GitHub: server token configured" : "GitHub: anonymous/server token not set";
+      serverDeepSeekPill.textContent = serverCredentialState.deepseek_key_configured ? "DeepSeek: server key configured" : "DeepSeek: no server key";
     }
-
     function syncLoaderUI() {
-      sourceModeSwitch
-        .querySelectorAll("[data-source-mode]")
-        .forEach((button) => {
-          button.classList.toggle(
-            "active",
-            button.dataset.sourceMode === sourceMode
-          );
-        });
-      credentialModeSwitch
-        .querySelectorAll("[data-credential-mode]")
-        .forEach((button) => {
-          button.classList.toggle(
-            "active",
-            button.dataset.credentialMode === credentialMode
-          );
-        });
-
+      sourceModeSwitch.querySelectorAll("[data-source-mode]").forEach(b => b.classList.toggle("active", b.dataset.sourceMode === sourceMode));
+      credentialModeSwitch.querySelectorAll("[data-credential-mode]").forEach(b => b.classList.toggle("active", b.dataset.credentialMode === credentialMode));
       repoFields.classList.toggle("hidden", sourceMode !== "repo");
       uploadFields.classList.toggle("hidden", sourceMode !== "upload");
-      userCredentialFields.classList.toggle(
-        "hidden",
-        credentialMode !== "user"
-      );
-
-      primaryLoadBtn.textContent =
-        sourceMode === "repo" ? "Build from GitHub" : "Load Selected JSON";
-      secondaryUploadBtn.textContent =
-        sourceMode === "repo"
-          ? "Pick JSON File Instead"
-          : "Choose Another JSON";
-
-      if (sourceMode === "upload") {
-        backendHint.textContent =
-          "Upload mode reads the graph JSON directly in the browser. Credentials are not required for this path.";
-        backendHint.className = "status-note success";
-      } else {
-        backendHint.textContent = backendAvailable
-          ? "GitHub loading is available through the local backend."
-          : "GitHub loading needs the local backend. Run `python3 web_app.py`, then reload this page. Upload mode still works without it.";
-        backendHint.className = `status-note ${backendAvailable ? "success" : "warn"
-          }`;
-      }
-
+      userCredentialFields.classList.toggle("hidden", credentialMode !== "user");
+      primaryLoadBtn.textContent = sourceMode === "repo" ? "Build from GitHub" : "Load Selected JSON";
+      secondaryUploadBtn.textContent = sourceMode === "repo" ? "Pick JSON File Instead" : "Choose Another JSON";
+      if (sourceMode === "upload") { backendHint.textContent = "Upload mode reads the graph JSON directly in the browser. Credentials are not required for this path."; backendHint.className = "status-note success"; }
+      else { backendHint.textContent = backendAvailable ? "GitHub loading is available through the local backend." : "GitHub loading needs the local backend. Run `python3 web_app.py`, then reload this page. Upload mode still works without it."; backendHint.className = `status-note ${backendAvailable ? "success" : "warn"}`; }
       updateServerCredentialPills();
     }
-
-    function updateDownloadButton() {
-      downloadGraphBtn.hidden = !(graphData && currentGraphOrigin === "repo");
-    }
-
-    function showDropOverlay() {
-      dropOverlay.classList.add("show");
-      syncLoaderUI();
-    }
-
-    function hideDropOverlay() {
-      dropOverlay.classList.remove("show");
-      setLoaderStatus("");
-    }
-
+    function showDropOverlay() { dropOverlay.classList.add("show"); syncLoaderUI(); }
+    function hideDropOverlay() { dropOverlay.classList.remove("show"); setLoaderStatus(""); }
     async function fetchServerConfig() {
-      try {
-        const response = await fetch("/api/config", { cache: "no-store" });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const payload = await response.json();
-        backendAvailable = true;
-        serverCredentialState =
-          payload.server_credentials || serverCredentialState;
-      } catch (error) {
-        backendAvailable = false;
-        serverCredentialState = {
-          github_token_configured: false,
-          deepseek_key_configured: false,
-        };
-      }
+      try { const r = await fetch("/api/config", { cache: "no-store" }); if (!r.ok) throw new Error(); const p = await r.json(); backendAvailable = true; serverCredentialState = p.server_credentials || serverCredentialState; }
+      catch { backendAvailable = false; serverCredentialState = { github_token_configured: false, deepseek_key_configured: false }; }
       syncLoaderUI();
     }
 
-    function roleLabel(role) {
-      return (
-        {
-          entry: "Entry point",
-          config: "Config",
-          automation: "Automation",
-          test: "Test",
-          docs: "Docs",
-          source: "Source",
-        }[role] || "File"
-      );
-    }
-
-    function nodeIdOf(ref) {
-      return typeof ref === "object" ? ref.id : ref;
-    }
-
-    function linkKey(link) {
-      return `${nodeIdOf(link.source)}->${nodeIdOf(link.target)}:${link.type
-        }`;
-    }
-
-    function findNodeById(nodeId) {
-      return (
-        visibleNodes.find((node) => node.id === nodeId) ||
-        currentNodes.find((node) => node.id === nodeId) ||
-        fullNodeLookup.get(nodeId) ||
-        null
-      );
-    }
-
-    function relationLabel(type) {
-      return (
-        {
-          imports: "imports",
-          contains: "contains",
-          module_imports: "depends on",
-        }[type] || type
-      );
-    }
-
+    /* ─── Node/link helpers ─── */
+    function roleLabel(role) { return ({ entry: "Entry point", config: "Config", automation: "Automation", test: "Test", docs: "Docs", source: "Source" }[role] || "File"); }
+    function nodeIdOf(ref) { return typeof ref === "object" ? ref.id : ref; }
+    function linkKey(link) { return `${nodeIdOf(link.source)}->${nodeIdOf(link.target)}:${link.type}`; }
+    function findNodeById(nodeId) { return visibleNodes.find(n => n.id === nodeId) || currentNodes.find(n => n.id === nodeId) || fullNodeLookup.get(nodeId) || null; }
+    function relationLabel(type) { return ({ imports: "imports", contains: "contains", module_imports: "depends on" }[type] || type); }
     function linkSummary(link) {
-      const source = findNodeById(nodeIdOf(link.source));
-      const target = findNodeById(nodeIdOf(link.target));
-      const sourceName =
-        source?.label || source?.name || nodeIdOf(link.source);
-      const targetName =
-        target?.label || target?.name || nodeIdOf(link.target);
-      if (link.type === "module_imports") {
-        return `${sourceName} depends on ${targetName}`;
-      }
-      if (link.type === "contains") {
-        return `${sourceName} contains ${targetName}`;
-      }
-      return `${sourceName} imports ${targetName}`;
+      const s = findNodeById(nodeIdOf(link.source)), t = findNodeById(nodeIdOf(link.target));
+      const sn = s?.label || s?.name || nodeIdOf(link.source), tn = t?.label || t?.name || nodeIdOf(link.target);
+      if (link.type === "module_imports") return `${sn} depends on ${tn}`;
+      if (link.type === "contains") return `${sn} contains ${tn}`;
+      return `${sn} imports ${tn}`;
     }
-
-    function repositoryName() {
-      return graphData?.repository || "Repo";
-    }
-
-    function humanModuleName(moduleId) {
-      return moduleId === "." ? "(root files)" : moduleId;
-    }
-
+    function repositoryName() { return graphData?.repository || "Repo"; }
+    function humanModuleName(id) { return id === "." ? "(root files)" : id; }
     function deriveModuleId(node) {
       if (node.module) return node.module;
-      const id = node.id || "";
-      if (!id || id === ".") return ".";
-      const parts = id.split("/");
-      const dirs = node.type === "directory" ? parts : parts.slice(0, -1);
+      const id = node.id || ""; if (!id || id === ".") return ".";
+      const parts = id.split("/"), dirs = node.type === "directory" ? parts : parts.slice(0, -1);
       if (!dirs.length) return ".";
-      if (WRAPPER_DIRS.has(dirs[0]) && dirs.length >= 2)
-        return `${dirs[0]}/${dirs[1]}`;
+      if (WRAPPER_DIRS.has(dirs[0]) && dirs.length >= 2) return `${dirs[0]}/${dirs[1]}`;
       return dirs[0];
     }
-
     function connectionSummary(node) {
-      if (node.type === "module") {
-        const languages = Array.isArray(node.dominant_extensions)
-          ? node.dominant_extensions.join(", ")
-          : "";
-        return `${node.file_count || 0} files${languages ? ` · ${languages}` : ""
-          }`;
-      }
-      if (node.type === "directory") {
-        return `${node.child_count || 0} direct children`;
-      }
-      const parts = [];
-      parts.push(
-        node.role && node.role !== "source"
-          ? roleLabel(node.role)
-          : node.extension || "File"
-      );
-      if (node.import_degree !== undefined)
-        parts.push(`${node.import_degree} links`);
+      if (node.type === "module") { const langs = Array.isArray(node.dominant_extensions) ? node.dominant_extensions.join(", ") : ""; return `${node.file_count || 0} files${langs ? ` · ${langs}` : ""}`; }
+      if (node.type === "directory") return `${node.child_count || 0} direct children`;
+      const parts = []; parts.push(node.role && node.role !== "source" ? roleLabel(node.role) : node.extension || "File");
+      if (node.import_degree !== undefined) parts.push(`${node.import_degree} links`);
       return parts.join(" · ");
     }
-
     function importanceForNode(node, fallbackDegree = 0) {
       if (node.importance_score !== undefined) return node.importance_score;
       let score = fallbackDegree;
@@ -1407,208 +1196,63 @@
       return score;
     }
 
+    /* ─── View builders ─── */
     function ensureOverviewView() {
-      if (!graphData)
-        return {
-          nodes: [],
-          edges: [],
-          description: VIEW_CONFIG.overview.fallbackDescription,
-        };
+      if (!graphData) return { nodes: [], edges: [], description: VIEW_CONFIG.overview.fallbackDescription };
       graphData.views = graphData.views || {};
       if (!graphData.views.overview) {
-        const fileNodes = (graphData.nodes || []).filter(
-          (node) => node.type === "file"
-        );
-        const nodeLookup = new Map(
-          (graphData.nodes || []).map((node) => [node.id, node])
-        );
-        const moduleMap = new Map();
-        const degree = {};
-        (graphData.edges || [])
-          .filter((edge) => edge.type === "imports")
-          .forEach((edge) => {
-            degree[edge.from] = (degree[edge.from] || 0) + 1;
-            degree[edge.to] = (degree[edge.to] || 0) + 1;
-          });
-
-        fileNodes.forEach((node) => {
-          const moduleId = deriveModuleId(node);
-          if (!moduleMap.has(moduleId)) {
-            moduleMap.set(moduleId, {
-              id: `module:${moduleId}`,
-              type: "module",
-              name: humanModuleName(moduleId),
-              label: humanModuleName(moduleId),
-              module: moduleId,
-              file_count: 0,
-              total_lines: 0,
-              dominant_extensions: [],
-              top_files: [],
-              entry_points: [],
-            });
-          }
-          const moduleNode = moduleMap.get(moduleId);
-          moduleNode.file_count += 1;
-          moduleNode.total_lines += node.lines || 0;
-          if (node.is_entry_point) moduleNode.entry_points.push(node.id);
-          if (!moduleNode._extensions) moduleNode._extensions = {};
-          if (node.extension)
-            moduleNode._extensions[node.extension] =
-              (moduleNode._extensions[node.extension] || 0) + 1;
-          if (!moduleNode._files) moduleNode._files = [];
-          moduleNode._files.push(node);
+        const fileNodes = (graphData.nodes || []).filter(n => n.type === "file");
+        const nodeLookup = new Map((graphData.nodes || []).map(n => [n.id, n]));
+        const moduleMap = new Map(), degree = {};
+        (graphData.edges || []).filter(e => e.type === "imports").forEach(e => { degree[e.from] = (degree[e.from] || 0) + 1; degree[e.to] = (degree[e.to] || 0) + 1; });
+        fileNodes.forEach(node => {
+          const mid = deriveModuleId(node);
+          if (!moduleMap.has(mid)) { moduleMap.set(mid, { id: `module:${mid}`, type: "module", name: humanModuleName(mid), label: humanModuleName(mid), module: mid, file_count: 0, total_lines: 0, dominant_extensions: [], top_files: [], entry_points: [] }); }
+          const m = moduleMap.get(mid);
+          m.file_count++; m.total_lines += node.lines || 0;
+          if (node.is_entry_point) m.entry_points.push(node.id);
+          if (!m._extensions) m._extensions = {};
+          if (node.extension) m._extensions[node.extension] = (m._extensions[node.extension] || 0) + 1;
+          if (!m._files) m._files = []; m._files.push(node);
         });
-
-        moduleMap.forEach((moduleNode) => {
-          moduleNode.dominant_extensions = Object.entries(
-            moduleNode._extensions || {}
-          )
-            .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-            .slice(0, 3)
-            .map(([ext]) => ext);
-          moduleNode.top_files = (moduleNode._files || [])
-            .sort(
-              (a, b) =>
-                importanceForNode(b, degree[b.id] || 0) -
-                importanceForNode(a, degree[a.id] || 0) ||
-                a.id.localeCompare(b.id)
-            )
-            .slice(0, 5)
-            .map((file) => ({
-              id: file.id,
-              name: file.name,
-              role: file.role || "source",
-              import_degree: file.import_degree ?? degree[file.id] ?? 0,
-              is_entry_point: !!file.is_entry_point,
-            }));
-          moduleNode.importance_score = Math.max(4, moduleNode.file_count);
-          delete moduleNode._extensions;
-          delete moduleNode._files;
+        moduleMap.forEach(m => {
+          m.dominant_extensions = Object.entries(m._extensions || {}).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 3).map(([ext]) => ext);
+          m.top_files = (m._files || []).sort((a, b) => importanceForNode(b, degree[b.id] || 0) - importanceForNode(a, degree[a.id] || 0) || a.id.localeCompare(b.id)).slice(0, 5).map(f => ({ id: f.id, name: f.name, role: f.role || "source", import_degree: f.import_degree ?? degree[f.id] ?? 0, is_entry_point: !!f.is_entry_point }));
+          m.importance_score = Math.max(4, m.file_count);
+          delete m._extensions; delete m._files;
         });
-
         const moduleEdges = new Map();
-        (graphData.edges || [])
-          .filter((edge) => edge.type === "imports")
-          .forEach((edge) => {
-            const sourceNode = nodeLookup.get(edge.from);
-            const targetNode = nodeLookup.get(edge.to);
-            if (!sourceNode || !targetNode) return;
-            const sourceModule = deriveModuleId(sourceNode);
-            const targetModule = deriveModuleId(targetNode);
-            if (sourceModule === targetModule) return;
-            const key = `${sourceModule}->${targetModule}`;
-            if (!moduleEdges.has(key)) {
-              moduleEdges.set(key, {
-                from: `module:${sourceModule}`,
-                to: `module:${targetModule}`,
-                type: "module_imports",
-                weight: 0,
-                examples: [],
-              });
-            }
-            const item = moduleEdges.get(key);
-            item.weight += 1;
-            if (item.examples.length < 3) {
-              item.examples.push({ from: sourceNode.id, to: targetNode.id });
-            }
-          });
-
-        graphData.views.overview = {
-          description: VIEW_CONFIG.overview.fallbackDescription,
-          nodes: [...moduleMap.values()].sort(
-            (a, b) => b.file_count - a.file_count || a.id.localeCompare(b.id)
-          ),
-          edges: [...moduleEdges.values()].sort(
-            (a, b) => b.weight - a.weight || a.from.localeCompare(b.from)
-          ),
-        };
+        (graphData.edges || []).filter(e => e.type === "imports").forEach(e => {
+          const sn = nodeLookup.get(e.from), tn = nodeLookup.get(e.to);
+          if (!sn || !tn) return;
+          const sm = deriveModuleId(sn), tm = deriveModuleId(tn);
+          if (sm === tm) return;
+          const key = `${sm}->${tm}`;
+          if (!moduleEdges.has(key)) { moduleEdges.set(key, { from: `module:${sm}`, to: `module:${tm}`, type: "module_imports", weight: 0, examples: [] }); }
+          const item = moduleEdges.get(key); item.weight++;
+          if (item.examples.length < 3) item.examples.push({ from: sn.id, to: tn.id });
+        });
+        graphData.views.overview = { description: VIEW_CONFIG.overview.fallbackDescription, nodes: [...moduleMap.values()].sort((a, b) => b.file_count - a.file_count || a.id.localeCompare(b.id)), edges: [...moduleEdges.values()].sort((a, b) => b.weight - a.weight || a.from.localeCompare(b.from)) };
       }
       return graphData.views.overview;
     }
 
     function ensureFocusView() {
-      if (!graphData)
-        return {
-          nodes: [],
-          edges: [],
-          description: VIEW_CONFIG.focus.fallbackDescription,
-        };
+      if (!graphData) return { nodes: [], edges: [], description: VIEW_CONFIG.focus.fallbackDescription };
       graphData.views = graphData.views || {};
       if (!graphData.views.focus) {
-        const fileNodes = (graphData.nodes || []).filter(
-          (node) => node.type === "file"
-        );
-        const nodeLookup = new Map(fileNodes.map((node) => [node.id, node]));
-        const importEdges = (graphData.edges || []).filter(
-          (edge) =>
-            edge.type === "imports" &&
-            nodeLookup.has(edge.from) &&
-            nodeLookup.has(edge.to)
-        );
-        const degree = {};
-        const neighbors = new Map();
-
-        importEdges.forEach((edge) => {
-          degree[edge.from] = (degree[edge.from] || 0) + 1;
-          degree[edge.to] = (degree[edge.to] || 0) + 1;
-          if (!neighbors.has(edge.from)) neighbors.set(edge.from, new Set());
-          if (!neighbors.has(edge.to)) neighbors.set(edge.to, new Set());
-          neighbors.get(edge.from).add(edge.to);
-          neighbors.get(edge.to).add(edge.from);
-        });
-
-        const ranked = [...fileNodes].sort((a, b) => {
-          const aScore = importanceForNode(a, degree[a.id] || 0);
-          const bScore = importanceForNode(b, degree[b.id] || 0);
-          return bScore - aScore || a.id.localeCompare(b.id);
-        });
-
-        const selected = [];
-        const seen = new Set();
-
-        ranked.forEach((node) => {
-          if (
-            node.is_entry_point &&
-            !seen.has(node.id) &&
-            selected.length < 8
-          ) {
-            selected.push(node.id);
-            seen.add(node.id);
-          }
-        });
-
-        ranked.forEach((node) => {
-          if (selected.length >= 16) return;
-          if (!seen.has(node.id)) {
-            selected.push(node.id);
-            seen.add(node.id);
-          }
-        });
-
-        [...selected].forEach((nodeId) => {
-          const linked = [...(neighbors.get(nodeId) || [])].sort(
-            (a, b) =>
-              importanceForNode(nodeLookup.get(b), degree[b] || 0) -
-              importanceForNode(nodeLookup.get(a), degree[a] || 0) ||
-              a.localeCompare(b)
-          );
-          linked.forEach((linkedId) => {
-            if (selected.length >= 36 || seen.has(linkedId)) return;
-            selected.push(linkedId);
-            seen.add(linkedId);
-          });
-        });
-
+        const fileNodes = (graphData.nodes || []).filter(n => n.type === "file");
+        const nodeLookup = new Map(fileNodes.map(n => [n.id, n]));
+        const importEdges = (graphData.edges || []).filter(e => e.type === "imports" && nodeLookup.has(e.from) && nodeLookup.has(e.to));
+        const degree = {}, neighbors = new Map();
+        importEdges.forEach(e => { degree[e.from] = (degree[e.from] || 0) + 1; degree[e.to] = (degree[e.to] || 0) + 1; if (!neighbors.has(e.from)) neighbors.set(e.from, new Set()); if (!neighbors.has(e.to)) neighbors.set(e.to, new Set()); neighbors.get(e.from).add(e.to); neighbors.get(e.to).add(e.from); });
+        const ranked = [...fileNodes].sort((a, b) => importanceForNode(b, degree[b.id] || 0) - importanceForNode(a, degree[a.id] || 0) || a.id.localeCompare(b.id));
+        const selected = [], seen = new Set();
+        ranked.forEach(n => { if (n.is_entry_point && !seen.has(n.id) && selected.length < 8) { selected.push(n.id); seen.add(n.id); } });
+        ranked.forEach(n => { if (selected.length >= 16) return; if (!seen.has(n.id)) { selected.push(n.id); seen.add(n.id); } });
+        [...selected].forEach(nid => { const linked = [...(neighbors.get(nid) || [])].sort((a, b) => importanceForNode(nodeLookup.get(b), degree[b] || 0) - importanceForNode(nodeLookup.get(a), degree[a] || 0) || a.localeCompare(b)); linked.forEach(lid => { if (selected.length >= 36 || seen.has(lid)) return; selected.push(lid); seen.add(lid); }); });
         const selectedIds = new Set(selected);
-        graphData.views.focus = {
-          description: VIEW_CONFIG.focus.fallbackDescription,
-          nodes: selected
-            .map((nodeId) => nodeLookup.get(nodeId))
-            .filter(Boolean),
-          edges: importEdges.filter(
-            (edge) => selectedIds.has(edge.from) && selectedIds.has(edge.to)
-          ),
-        };
+        graphData.views.focus = { description: VIEW_CONFIG.focus.fallbackDescription, nodes: selected.map(id => nodeLookup.get(id)).filter(Boolean), edges: importEdges.filter(e => selectedIds.has(e.from) && selectedIds.has(e.to)) };
       }
       return graphData.views.focus;
     }
@@ -1617,1381 +1261,717 @@
       if (!graphData) return { nodes: [], edges: [], description: "" };
       if (view === "overview") return ensureOverviewView();
       if (view === "focus") return ensureFocusView();
-      return {
-        description: VIEW_CONFIG.structure.fallbackDescription,
-        nodes: graphData.nodes || [],
-        edges: graphData.edges || [],
-      };
+      return { description: VIEW_CONFIG.structure.fallbackDescription, nodes: graphData.nodes || [], edges: graphData.edges || [] };
     }
 
     function decorateNode(node, connectionCount) {
-      let color = EXT_COLORS.default;
+      // Use 4-color sphere palette; val controls SIZE only (kept small)
+      const color = getSphereColor(node);
       let val = 2;
-
-      if (node.type === "module") {
-        color = MODULE_COLOR;
-        val = Math.max(
-          8,
-          Math.sqrt(node.file_count || 1) * 4 +
-          Math.min(connectionCount[node.id] || 0, 8)
-        );
-      } else if (node.type === "directory") {
-        color = node.id === "." ? "#8b5cf6" : DIR_COLOR;
-        val =
-          node.id === "."
-            ? 8
-            : Math.max(
-              3,
-              Math.sqrt(node.child_count || connectionCount[node.id] || 1) *
-              2.1
-            );
-      } else {
-        const roleColor = ROLE_COLORS[node.role];
-        color = node.is_entry_point
-          ? ENTRY_COLOR
-          : roleColor ||
-          EXT_COLORS[node.extension || "default"] ||
-          EXT_COLORS.default;
-        val = Math.max(
-          1.8,
-          1.6 +
-          Math.sqrt(
-            Math.max(
-              1,
-              importanceForNode(node, connectionCount[node.id] || 0)
-            )
-          )
-        );
-      }
-
-      return {
-        ...node,
-        color,
-        val,
-      };
+      if (node.type === "module") { val = Math.max(6, Math.sqrt(node.file_count || 1) * 3 + Math.min(connectionCount[node.id] || 0, 6)); }
+      else if (node.type === "directory") { val = node.id === "." ? 6 : Math.max(3, Math.sqrt(node.child_count || connectionCount[node.id] || 1) * 1.8); }
+      else { val = Math.max(2, 1.5 + Math.sqrt(Math.max(1, importanceForNode(node, connectionCount[node.id] || 0)))); }
+      return { ...node, color, val };
     }
 
     function decorateLink(edge) {
-      const type = edge.type;
-      const weight = edge.weight || 1;
+      const type = edge.type, weight = edge.weight || 1;
       return {
-        ...edge,
-        source: edge.from,
-        target: edge.to,
-        key: `${edge.from}->${edge.to}:${type}`,
-        color:
-          type === "module_imports"
-            ? MODULE_EDGE_COLOR
-            : type === "imports"
-              ? IMPORT_EDGE_COLOR
-              : CONTAINS_EDGE_COLOR,
-        width:
-          type === "module_imports"
-            ? Math.min(6, 1.4 + weight * 0.7)
-            : type === "imports"
-              ? Math.min(3.5, 1 + (weight - 1) * 0.5)
-              : 0.6,
-        arrowLength:
-          type === "contains" ? 0 : type === "module_imports" ? 8 : 5,
-        particles:
-          type === "contains"
-            ? 0
-            : type === "module_imports"
-              ? Math.min(4, Math.ceil(weight / 2))
-              : 2,
+        ...edge, source: edge.from, target: edge.to, key: `${edge.from}->${edge.to}:${type}`,
+        color: type === "module_imports" ? MODULE_EDGE_COLOR : type === "imports" ? IMPORT_EDGE_COLOR : CONTAINS_EDGE_COLOR,
+        width: type === "module_imports" ? Math.min(6, 1.6 + weight * 0.8) : type === "imports" ? Math.min(3.5, 1 + (weight - 1) * 0.5) : 0.7,
+        arrowLength: type === "contains" ? 0 : type === "module_imports" ? 8 : 5
       };
     }
 
     function buildCurrentViewGraph() {
-      const payload = getViewPayload(currentView);
-      const nodes = payload.nodes || [];
-      const edges = payload.edges || [];
+      const payload = getViewPayload(currentView), nodes = payload.nodes || [], edges = payload.edges || [];
       const connectionCount = {};
-
-      edges.forEach((edge) => {
-        connectionCount[edge.from] = (connectionCount[edge.from] || 0) + 1;
-        connectionCount[edge.to] = (connectionCount[edge.to] || 0) + 1;
-      });
-
-      currentNodes = nodes.map((node) => decorateNode(node, connectionCount));
-      const nodeIds = new Set(currentNodes.map((node) => node.id));
-      currentLinks = edges
-        .filter((edge) => nodeIds.has(edge.from) && nodeIds.has(edge.to))
-        .map(decorateLink);
-
-      currentViewMeta = {
-        ...VIEW_CONFIG[currentView],
-        ...payload,
-      };
+      edges.forEach(e => { connectionCount[e.from] = (connectionCount[e.from] || 0) + 1; connectionCount[e.to] = (connectionCount[e.to] || 0) + 1; });
+      currentNodes = nodes.map(n => decorateNode(n, connectionCount));
+      const nodeIds = new Set(currentNodes.map(n => n.id));
+      currentLinks = edges.filter(e => nodeIds.has(e.from) && nodeIds.has(e.to)).map(decorateLink);
+      currentViewMeta = { ...VIEW_CONFIG[currentView], ...payload };
     }
 
-    function updateViewButtons() {
-      document.querySelectorAll(".view-btn").forEach((button) => {
-        button.classList.toggle(
-          "active",
-          button.dataset.view === currentView
-        );
-      });
-    }
+    function updateViewButtons() { document.querySelectorAll(".view-btn").forEach(b => b.classList.toggle("active", b.dataset.view === currentView)); }
 
     function buildFilters() {
-      filterContainer.innerHTML = "";
-      activeFilters = new Set();
-
-      if (currentView === "overview") {
-        filterContainer.classList.add("hidden");
-        return;
-      }
-
-      const exts = [
-        ...new Set(
-          currentNodes
-            .filter((node) => node.type === "file" && node.extension)
-            .map((node) => node.extension)
-        ),
-      ].sort();
-      if (!exts.length) {
-        filterContainer.classList.add("hidden");
-        return;
-      }
-
+      filterContainer.innerHTML = ""; activeFilters = new Set();
+      if (currentView === "overview") { filterContainer.classList.add("hidden"); return; }
+      const exts = [...new Set(currentNodes.filter(n => n.type === "file" && n.extension).map(n => n.extension))].sort();
+      if (!exts.length) { filterContainer.classList.add("hidden"); return; }
       filterContainer.classList.remove("hidden");
-      exts.forEach((ext) => {
-        const button = document.createElement("button");
-        button.className = "filter-btn";
-        button.textContent = ext;
-        button.addEventListener("click", () => {
-          if (activeFilters.has(ext)) {
-            activeFilters.delete(ext);
-            button.classList.remove("active");
-          } else {
-            activeFilters.add(ext);
-            button.classList.add("active");
-          }
-          applyFilters();
-        });
-        filterContainer.appendChild(button);
+      exts.forEach(ext => {
+        const b = document.createElement("button"); b.className = "filter-btn"; b.textContent = ext;
+        b.addEventListener("click", () => { if (activeFilters.has(ext)) { activeFilters.delete(ext); b.classList.remove("active"); } else { activeFilters.add(ext); b.classList.add("active"); } applyFilters(); });
+        filterContainer.appendChild(b);
       });
     }
 
     function updateStats() {
       const repo = repositoryName();
-      if (!graphData) {
-        statsText.textContent = "Drop a _graph.json file or click Load";
-        return;
-      }
-
-      const filteredSuffix = activeFilters.size
-        ? ` · filtered to ${[...activeFilters].join(", ")}`
-        : "";
-      if (currentView === "overview") {
-        statsText.textContent = `${repo} — ${visibleNodes.length} modules, ${visibleLinks.length} cross-module dependencies${filteredSuffix}`;
-        return;
-      }
-      if (currentView === "focus") {
-        statsText.textContent = `${repo} — ${visibleNodes.length} key files, ${visibleLinks.length} dependency links${filteredSuffix}`;
-        return;
-      }
-
-      const fileCount = visibleNodes.filter(
-        (node) => node.type === "file"
-      ).length;
-      const dirCount = visibleNodes.filter(
-        (node) => node.type === "directory"
-      ).length;
-      const importCount = visibleLinks.filter(
-        (link) => link.type === "imports"
-      ).length;
-      const containsCount = visibleLinks.filter(
-        (link) => link.type === "contains"
-      ).length;
-      statsText.textContent = `${repo} — ${fileCount} files, ${dirCount} dirs, ${importCount} imports, ${containsCount} structure edges${filteredSuffix}`;
+      if (!graphData) { statsText.textContent = "Drop a _graph.json file or click Load"; return; }
+      const fs = activeFilters.size ? ` · filtered to ${[...activeFilters].join(", ")}` : "";
+      if (currentView === "overview") { statsText.textContent = `${repo} — ${visibleNodes.length} modules, ${visibleLinks.length} cross-module dependencies${fs}`; return; }
+      if (currentView === "focus") { statsText.textContent = `${repo} — ${visibleNodes.length} key files, ${visibleLinks.length} dependency links${fs}`; return; }
+      const fc = visibleNodes.filter(n => n.type === "file").length, dc = visibleNodes.filter(n => n.type === "directory").length;
+      const ic = visibleLinks.filter(l => l.type === "imports").length, cc = visibleLinks.filter(l => l.type === "contains").length;
+      statsText.textContent = `${repo} — ${fc} files, ${dc} dirs, ${ic} imports, ${cc} structure edges${fs}`;
     }
 
     function updateLegend() {
       const items = [];
-      if (currentView === "overview") {
-        items.push({ color: MODULE_COLOR, label: "Module" });
-        items.push({
-          color: MODULE_EDGE_COLOR,
-          label: "Cross-module dependency",
-        });
-      } else {
-        if (visibleNodes.some((node) => node.is_entry_point))
-          items.push({ color: ENTRY_COLOR, label: "Entry point" });
-        ["config", "automation", "test", "docs"].forEach((role) => {
-          if (visibleNodes.some((node) => node.role === role))
-            items.push({ color: ROLE_COLORS[role], label: roleLabel(role) });
-        });
-        if (visibleNodes.some((node) => node.type === "directory"))
-          items.push({ color: DIR_COLOR, label: "Directory" });
-        [
-          ...new Set(
-            visibleNodes
-              .filter(
-                (node) =>
-                  node.type === "file" &&
-                  node.role === "source" &&
-                  node.extension
-              )
-              .map((node) => node.extension)
-          ),
-        ]
-          .slice(0, 5)
-          .forEach((ext) =>
-            items.push({
-              color: EXT_COLORS[ext] || EXT_COLORS.default,
-              label: ext,
-            })
-          );
+      if (currentView === "overview") { items.push({ color: MODULE_COLOR, label: "Module" }); items.push({ color: MODULE_EDGE_COLOR, label: "Cross-module dependency" }); }
+      else {
+        if (visibleNodes.some(n => n.is_entry_point)) items.push({ color: ENTRY_COLOR, label: "Entry point" });
+        ["config", "automation", "test", "docs"].forEach(r => { if (visibleNodes.some(n => n.role === r)) items.push({ color: ROLE_COLORS[r], label: roleLabel(r) }); });
+        if (visibleNodes.some(n => n.type === "directory")) items.push({ color: DIR_COLOR, label: "Directory" });
+        [...new Set(visibleNodes.filter(n => n.type === "file" && n.role === "source" && n.extension).map(n => n.extension))].slice(0, 5).forEach(ext => items.push({ color: EXT_COLORS[ext] || EXT_COLORS.default, label: ext }));
       }
-
-      document.getElementById("legend").innerHTML = items
-        .map(
-          (item) =>
-            `<div class="legend-item"><div class="legend-dot" style="background:${item.color
-            }"></div>${escapeHtml(item.label)}</div>`
-        )
-        .join("");
+      document.getElementById("legend").innerHTML = items.map(i => `<div class="legend-item"><div class="legend-dot" style="background:${i.color}"></div>${escapeHtml(i.label)}</div>`).join("");
     }
 
     function nodeMatchesQuery(node, query) {
-      const haystack = [
-        node.id,
-        node.name,
-        node.label,
-        node.module,
-        node.role,
-        ...(Array.isArray(node.top_files)
-          ? node.top_files.map((file) => `${file.id} ${file.name}`)
-          : []),
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-      return haystack.includes(query);
+      const h = [node.id, node.name, node.label, node.module, node.role, ...(Array.isArray(node.top_files) ? node.top_files.map(f => `${f.id} ${f.name}`) : [])]
+        .filter(Boolean).join(" ").toLowerCase();
+      return h.includes(query);
     }
 
     function refreshHighlights() {
-      highlightNodeIds.clear();
-      highlightLinkIds.clear();
-
-      lastSearchMatches = searchQuery
-        ? visibleNodes
-          .filter((node) => nodeMatchesQuery(node, searchQuery))
-          .slice(0, 50)
-        : [];
-
-      lastSearchMatches.forEach((node) => highlightNodeIds.add(node.id));
-
+      highlightNodeIds.clear(); highlightLinkIds.clear();
+      lastSearchMatches = searchQuery ? visibleNodes.filter(n => nodeMatchesQuery(n, searchQuery)).slice(0, 50) : [];
+      lastSearchMatches.forEach(n => highlightNodeIds.add(n.id));
       if (selectedNodeId) {
-        const stillVisible = visibleNodes.some(
-          (node) => node.id === selectedNodeId
-        );
-        if (!stillVisible) {
-          selectedNodeId = null;
-          document.getElementById("sidePanel").classList.remove("open");
-        } else {
+        const sv = visibleNodes.some(n => n.id === selectedNodeId);
+        if (!sv) { selectedNodeId = null; document.getElementById("sidePanel").classList.remove("open"); }
+        else {
           highlightNodeIds.add(selectedNodeId);
-          visibleLinks.forEach((link) => {
-            const sourceId = nodeIdOf(link.source);
-            const targetId = nodeIdOf(link.target);
-            if (sourceId === selectedNodeId || targetId === selectedNodeId) {
-              highlightLinkIds.add(link.key || linkKey(link));
-              highlightNodeIds.add(sourceId);
-              highlightNodeIds.add(targetId);
-            }
-          });
+          visibleLinks.forEach(l => { const s = nodeIdOf(l.source), t = nodeIdOf(l.target); if (s === selectedNodeId || t === selectedNodeId) { highlightLinkIds.add(l.key || linkKey(l)); highlightNodeIds.add(s); highlightNodeIds.add(t); } });
         }
       }
-
       if (selectedLinkKey) {
-        const activeLink = visibleLinks.find(
-          (link) => (link.key || linkKey(link)) === selectedLinkKey
-        );
-        if (!activeLink) {
-          selectedLinkKey = null;
-        } else {
-          highlightLinkIds.add(activeLink.key || linkKey(activeLink));
-          highlightNodeIds.add(nodeIdOf(activeLink.source));
-          highlightNodeIds.add(nodeIdOf(activeLink.target));
-        }
+        const al = visibleLinks.find(l => (l.key || linkKey(l)) === selectedLinkKey);
+        if (!al) { selectedLinkKey = null; }
+        else { highlightLinkIds.add(al.key || linkKey(al)); highlightNodeIds.add(nodeIdOf(al.source)); highlightNodeIds.add(nodeIdOf(al.target)); }
       }
-
-      if (graphInstance) {
-        graphInstance.nodeColor(graphInstance.nodeColor());
-        graphInstance.linkColor(graphInstance.linkColor());
-      }
-
+      if (graphInstance) { graphInstance.nodeColor(graphInstance.nodeColor()); graphInstance.linkColor(graphInstance.linkColor()); }
       updateSummaryCard();
     }
 
-    function updateEmptyState() {
-      emptyState.classList.toggle(
-        "show",
-        !!graphData && visibleNodes.length === 0
-      );
-    }
+    function updateEmptyState() { emptyState.classList.toggle("show", !!graphData && visibleNodes.length === 0); }
 
     function applyFilters() {
       if (!graphInstance) return;
-
-      visibleNodes =
-        currentView === "overview" || activeFilters.size === 0
-          ? [...currentNodes]
-          : currentNodes.filter(
-            (node) =>
-              node.type !== "file" || activeFilters.has(node.extension)
-          );
-
-      const visibleIds = new Set(visibleNodes.map((node) => node.id));
-      visibleLinks = currentLinks.filter(
-        (link) =>
-          visibleIds.has(nodeIdOf(link.source)) &&
-          visibleIds.has(nodeIdOf(link.target))
-      );
-
+      visibleNodes = currentView === "overview" || activeFilters.size === 0 ? [...currentNodes] : currentNodes.filter(n => n.type !== "file" || activeFilters.has(n.extension));
+      const vids = new Set(visibleNodes.map(n => n.id));
+      visibleLinks = currentLinks.filter(l => vids.has(nodeIdOf(l.source)) && vids.has(nodeIdOf(l.target)));
       graphInstance.graphData({ nodes: visibleNodes, links: visibleLinks });
-      updateStats();
-      updateEmptyState();
-      refreshHighlights();
-      updateLegend();
+      updateStats(); updateEmptyState(); refreshHighlights(); updateLegend();
     }
 
     function configureLayout() {
       if (!graphInstance) return;
-      if (typeof graphInstance.numDimensions === "function") {
-        graphInstance.numDimensions(currentView === "structure" ? 3 : 2);
-      }
-      graphInstance.d3Force("charge").strength((node) => {
-        if (currentView === "overview")
-          return node.type === "module" ? -520 : -220;
-        if (currentView === "focus") return -240;
-        return node.type === "directory" ? -220 : -90;
-      });
-      graphInstance.d3Force("link").distance((link) => {
-        if (link.type === "module_imports")
-          return 180 + Math.min(120, (link.weight || 1) * 10);
-        if (link.type === "imports")
-          return currentView === "focus" ? 120 : 95;
-        return 34;
-      });
+      if (typeof graphInstance.numDimensions === "function") graphInstance.numDimensions(currentView === "structure" ? 3 : 2);
+      graphInstance.d3Force("charge").strength(n => { if (currentView === "overview") return n.type === "module" ? -600 : -280; if (currentView === "focus") return -300; return n.type === "directory" ? -250 : -110; });
+      graphInstance.d3Force("link").distance(l => { if (l.type === "module_imports") return 200 + Math.min(130, (l.weight || 1) * 10); if (l.type === "imports") return currentView === "focus" ? 140 : 110; return 40; });
     }
 
     function fitGraph(delay = 450) {
-      if (
-        !graphInstance ||
-        !visibleNodes.length ||
-        typeof graphInstance.zoomToFit !== "function"
-      )
-        return;
-      setTimeout(() => {
-        try {
-          graphInstance.zoomToFit(700, 70);
-        } catch (error) {
-          console.debug("zoomToFit failed", error);
-        }
-      }, delay);
+      if (!graphInstance || !visibleNodes.length || typeof graphInstance.zoomToFit !== "function") return;
+      setTimeout(() => { try { graphInstance.zoomToFit(700, 70); } catch { } }, delay);
     }
 
-    function cleanAiSummary(text) {
-      return String(text || "")
-        .replace(/[#>*_`-]/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
+    /* ═══════════════════════════════════════════════════════════════
+       3D GLOSSY SPHERE NODE RENDERING
+       Replaces the flat canvas billboard with a real Three.js sphere
+       that has Phong shading + specular highlight (like the image).
+    ═══════════════════════════════════════════════════════════════ */
+
+    // ═══════════════════════════════════════════════════════════════
+    //  3D GLOSSY SPHERE NODE RENDERING
+    //  - Consistent plain spheres, no rings
+    //  - Label baked into the sphere surface texture
+    //  - Smaller uniform sizes; only 4 colors (yellow/red/blue/green)
+    // ═══════════════════════════════════════════════════════════════
+
+    let lightsInjected = false;
+
+    function injectSceneLights(graphInst) {
+      if (lightsInjected) return;
+      try {
+        const scene = graphInst.scene();
+        if (!scene) return;
+
+        // Strong key light — upper-front-left → creates the bright glint
+        const key = new THREE.PointLight(0xffffff, 3.0, 0);
+        key.position.set(400, 500, 400);
+        scene.add(key);
+
+        // Softer fill from the other side
+        const fill = new THREE.PointLight(0xddeeff, 1.0, 0);
+        fill.position.set(-300, -150, 300);
+        scene.add(fill);
+
+        // Gentle ambient so shadowed faces stay visible
+        const ambient = new THREE.AmbientLight(0x334466, 1.2);
+        scene.add(ambient);
+
+        lightsInjected = true;
+      } catch (e) { console.warn("Could not inject lights:", e); }
     }
 
-    function renderRepoSnapshot() {
-      if (!repoContext && !(graphData && graphData.repository)) {
-        repoSnapshot.classList.add("hidden");
-        repoSnapshot.innerHTML = "";
-        return;
-      }
-
-      if (!repoContext) {
-        repoSnapshot.classList.remove("hidden");
-        repoSnapshot.innerHTML = `
-            <h4>${escapeHtml(graphData.repository || "Loaded graph")}</h4>
-            <div class="metric-pills">
-              <div class="metric-pill">${formatNumber(
-          graphData?.stats?.module_count ||
-          graphData?.views?.overview?.nodes?.length ||
-          0
-        )} modules</div>
-              <div class="metric-pill">${formatNumber(
-          graphData?.stats?.total_files || 0
-        )} files</div>
-            </div>
-          `;
-        return;
-      }
-
-      const languageText = (repoContext.languages || [])
-        .map((entry) => entry.name)
-        .join(", ");
-      const aiSummaryText =
-        repoContext.ai_summary_status === "generated" &&
-          repoContext.ai_summary
-          ? cleanAiSummary(repoContext.ai_summary)
-          : repoContext.ai_summary_status === "missing_key"
-            ? "DeepSeek summary is available when a DeepSeek key is configured."
-            : repoContext.ai_summary_status === "failed"
-              ? "DeepSeek summary could not be generated for this request."
-              : "";
-
-      repoSnapshot.classList.remove("hidden");
-      repoSnapshot.innerHTML = `
-          <h4>${escapeHtml(
-        repoContext.full_name || graphData?.repository || "Loaded graph"
-      )}</h4>
-          ${repoContext.description
-          ? `<p>${escapeHtml(repoContext.description)}</p>`
-          : ""
-        }
-          <div class="metric-pills">
-            <div class="metric-pill">Health ${escapeHtml(
-          String(repoContext.health_score ?? "N/A")
-        )}${repoContext.health_grade
-          ? ` (${escapeHtml(String(repoContext.health_grade))})`
-          : ""
-        }</div>
-            <div class="metric-pill">${formatNumber(
-          repoContext.stars
-        )} stars</div>
-            <div class="metric-pill">${formatNumber(
-          repoContext.forks
-        )} forks</div>
-            <div class="metric-pill">${formatNumber(
-          repoContext.open_issues
-        )} open issues</div>
-          </div>
-          ${languageText
-          ? `<p><strong>Languages:</strong> ${escapeHtml(languageText)}</p>`
-          : ""
-        }
-          ${aiSummaryText
-          ? `<div class="ai-summary">${typeof marked !== 'undefined' ? marked.parse(aiSummaryText) : escapeHtml(aiSummaryText)}</div>`
-          : ""
-        }
-        `;
+    function parseColor(colorStr) {
+      try { return new THREE.Color(colorStr); }
+      catch { return new THREE.Color(0x808098); }
     }
 
-    function updateSummaryCard() {
-      const title = summaryCard.querySelector("h2");
-      const section = summaryCard.querySelector(".summary-section-title");
+    // Bake the file/module name directly onto the sphere surface as a texture
+    function createTextLabel(text, color) {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = 512; 
+      canvas.height = 128;
 
-      if (!graphData) {
-        title.textContent = "Readable Graphs";
-        summaryIntro.textContent =
-          "Load a graph JSON to see a module overview first, then drill into key files and full structure when needed.";
-        section.textContent = "Why This View";
-        summaryList.innerHTML = "";
-        renderRepoSnapshot();
-        return;
-      }
+      const display = text.length > 25 ? text.substring(0, 23) + "..." : text;
+      
+      // Measure text to size the capsule
+      ctx.font = "Bold 44px Inter, Arial, sans-serif";
+      const metrics = ctx.measureText(display);
+      const textWidth = metrics.width;
+      const capsuleWidth = Math.min(490, textWidth + 80);
+      const capsuleHeight = 90;
+      const x = 256, y = 64;
 
-      title.textContent =
-        currentViewMeta.title || VIEW_CONFIG[currentView].title;
-      summaryIntro.textContent =
-        currentViewMeta.description ||
-        VIEW_CONFIG[currentView].fallbackDescription;
-      renderRepoSnapshot();
+      // Draw strong shadow for maximum visibility
+      ctx.shadowColor = "rgba(0,0,0,0.8)";
+      ctx.shadowBlur = 20;
+      ctx.shadowOffsetY = 8;
 
-      let items = [];
-      if (searchQuery) {
-        section.textContent = "Search Results";
-        items = lastSearchMatches.slice(0, 6).map((node) => ({
-          id: node.id,
-          title: node.label || node.name || node.id,
-          meta: connectionSummary(node),
-        }));
-      } else if (currentView === "overview") {
-        section.textContent = VIEW_CONFIG.overview.sectionTitle;
-        items = [...visibleNodes]
-          .filter((node) => node.type === "module")
-          .sort(
-            (a, b) =>
-              (b.file_count || 0) - (a.file_count || 0) ||
-              a.id.localeCompare(b.id)
-          )
-          .slice(0, 6)
-          .map((node) => ({
-            id: node.id,
-            title: node.label || node.name || node.id,
-            meta: `${node.file_count || 0} files${node.dominant_extensions?.length
-              ? ` · ${node.dominant_extensions.join(", ")}`
-              : ""
-              }`,
-          }));
-      } else {
-        section.textContent = VIEW_CONFIG[currentView].sectionTitle;
-        items = [...visibleNodes]
-          .filter((node) => node.type === "file")
-          .sort(
-            (a, b) =>
-              importanceForNode(b) - importanceForNode(a) ||
-              a.id.localeCompare(b.id)
-          )
-          .slice(0, 6)
-          .map((node) => ({
-            id: node.id,
-            title: node.name || node.id,
-            meta: connectionSummary(node),
-          }));
-      }
+      // Capsule Background (More opaque for "always-on" visibility)
+      ctx.fillStyle = "rgba(15, 15, 35, 0.95)";
+      ctx.beginPath();
+      ctx.roundRect(x - capsuleWidth / 2, y - capsuleHeight / 2, capsuleWidth, capsuleHeight, 45);
+      ctx.fill();
 
-      if (!items.length) {
-        summaryList.innerHTML =
-          '<div class="summary-item"><strong>No nodes in this view</strong><span>Adjust filters, clear search, or switch views.</span></div>';
-        return;
-      }
+      // Sharp Colored Accent Border
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 4;
+      ctx.stroke();
 
-      summaryList.innerHTML = items
-        .map(
-          (item) => `
-          <button class="summary-item" data-node-id="${escapeHtml(item.id)}">
-            <strong>${escapeHtml(item.title)}</strong>
-            <span>${escapeHtml(item.meta)}</span>
-          </button>
-        `
-        )
-        .join("");
-    }
+      // Ultra-crisp text
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(display, x, y);
 
-    function renderList(items, emptyMessage) {
-      if (!items.length)
-        return `<div class="mini-note">${escapeHtml(emptyMessage)}</div>`;
-      return `<ul class="def-list">${items
-        .map((item) => `<li>${escapeHtml(item)}</li>`)
-        .join("")}</ul>`;
-    }
-
-    function moduleRelations(moduleId) {
-      const overview = ensureOverviewView();
-      const incoming = [];
-      const outgoing = [];
-      (overview.edges || []).forEach((edge) => {
-        const sourceId = edge.from.replace(/^module:/, "");
-        const targetId = edge.to.replace(/^module:/, "");
-        if (sourceId === moduleId)
-          outgoing.push(`${humanModuleName(targetId)} (${edge.weight || 1})`);
-        if (targetId === moduleId)
-          incoming.push(`${humanModuleName(sourceId)} (${edge.weight || 1})`);
+      const texture = new THREE.CanvasTexture(canvas);
+      const spriteMaterial = new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        depthTest: false 
       });
-      return { incoming, outgoing };
+      const sprite = new THREE.Sprite(spriteMaterial);
+      // Increased base scale for "Always Visible" presence
+      sprite.scale.set(36, 9, 1); 
+      return sprite;
     }
 
-    function fileRelations(nodeId) {
-      const incoming = [];
-      const outgoing = [];
-      (graphData?.edges || []).forEach((edge) => {
-        if (edge.type !== "imports") return;
-        if (edge.from === nodeId) outgoing.push(edge.to);
-        if (edge.to === nodeId) incoming.push(edge.from);
+    function buildNodeObject(node) {
+      const baseColor = node.color || SPHERE_PALETTE[2];
+      const radius = Math.max(4, node.val * 1.5);
+      const name = node.label || node.name || (node.id || "").split("/").pop() || node.id || "";
+
+      const group = new THREE.Group();
+
+      // The glossy sphere
+      const geo = new THREE.SphereGeometry(radius, 32, 32);
+      const mat = new THREE.MeshPhongMaterial({
+        color: baseColor,
+        specular: 0x555555,
+        shininess: 30
       });
-      return {
-        incoming: [...new Set(incoming)].sort(),
-        outgoing: [...new Set(outgoing)].sort(),
-      };
+      const sphere = new THREE.Mesh(geo, mat);
+      group.add(sphere);
+
+      // The label - specifically making it pop in Focus view
+      const label = createTextLabel(name, baseColor);
+      
+      // Dynamic scaling for labels to ensure visibility in Focus view
+      const isFocus = (typeof currentView !== "undefined" && currentView === "focus");
+      const scaleMultiplier = isFocus ? 1.3 : 1.0;
+      label.scale.set(28 * scaleMultiplier, 7 * scaleMultiplier, 1);
+      
+      // Positioned clearly below the sphere
+      label.position.set(0, -radius - (isFocus ? 12 : 10), 0); 
+      group.add(label);
+
+      return group;
     }
 
-    function directoryChildren(nodeId) {
-      return (graphData?.edges || [])
-        .filter((edge) => edge.type === "contains" && edge.from === nodeId)
-        .map((edge) => edge.to)
-        .sort()
-        .slice(0, 16);
+    /* ─── DeepSeek edge analysis ─── */
+    function hasDeepSeekKey() {
+      return !!(deepseekKeyInput?.value?.trim() || serverCredentialState.deepseek_key_configured);
     }
 
-    function renderDetailRows(rows) {
-      return rows
-        .filter(
-          (row) =>
-            row.value !== undefined && row.value !== null && row.value !== ""
-        )
-        .map(
-          (row) =>
-            `<div class="detail-row"><span class="label">${escapeHtml(
-              row.label
-            )}</span><span class="value" style="font-size:11px;word-break:break-all">${escapeHtml(
-              row.value
-            )}</span></div>`
-        )
-        .join("");
-    }
-
-    function showRelationshipPanel(link) {
-      const panel = document.getElementById("sidePanel");
-      const content = document.getElementById("panelContent");
+    async function analyzeEdgeWithDeepSeek(link, container) {
       const source = findNodeById(nodeIdOf(link.source));
       const target = findNodeById(nodeIdOf(link.target));
-      const sourceName =
-        source?.label || source?.name || nodeIdOf(link.source);
-      const targetName =
-        target?.label || target?.name || nodeIdOf(link.target);
-      const relationText = linkSummary(link);
-
-      // Store current link for AI explanation
-      window.activeLink = link;
-
-      let html = "<h2>Relationship Details</h2>";
-      html += `<h3>${escapeHtml(relationText)}</h3>`;
-
-      if (link.type === "module_imports") {
-        html += `<div class="mini-note">This edge summarizes cross-module traffic. It means files inside <strong>${escapeHtml(
-          sourceName
-        )}</strong> directly depend on files inside <strong>${escapeHtml(
-          targetName
-        )}</strong>.</div>`;
-      } else if (link.type === "imports") {
-        html += `<div class="mini-note">This is a direct code dependency. The source file imports the target file, so changes in the target can affect the source.</div>`;
-      } else {
-        html += `<div class="mini-note">This is a structure relationship. It shows where a file or directory lives in the repository hierarchy.</div>`;
-      }
-
-      html += `<div style="margin:8px 0">
-          <span class="tag" style="background:${link.color}22;color:${link.color
-        };border:1px solid ${link.color}44">${escapeHtml(
-          relationLabel(link.type)
-        )}</span>
+      container.innerHTML = `
+        <div class="ai-panel">
+          <div class="ai-panel-header"><div class="ai-spinner"></div>DeepSeek Relationship Analysis</div>
+          <div class="ai-panel-body" id="aiBodyText"><em style="color:#808098">Analyzing the architectural connection…</em></div>
         </div>`;
-
-      html += renderDetailRows([
-        { label: "From", value: source?.id || nodeIdOf(link.source) },
-        { label: "To", value: target?.id || nodeIdOf(link.target) },
-        {
-          label: "Weight",
-          value:
-            link.type === "module_imports"
-              ? `${formatNumber(link.weight || 1)} file-level imports`
-              : `${formatNumber(link.weight || 1)}`,
-        },
-        { label: "Import Path", value: link.raw || "" },
-        {
-          label: "Source Module",
-          value: source?.module ? humanModuleName(source.module) : "",
-        },
-        {
-          label: "Target Module",
-          value: target?.module ? humanModuleName(target.module) : "",
-        },
-        { label: "Description", value: link.description || "" },
-      ]);
-
-      html += `
-          <div class="ai-explanation-box" id="aiExplanationBox">
-            <h4>🤖 Relationship Analyst</h4>
-            <div id="aiExplanationText" style="color: #aeb3d6;">
-              DeepSeek can analyze how these two components interact and why this dependency exists.
+      try {
+        const payload = { source_node: source, target_node: target, edge: link, deepseek_key: deepseekKeyInput?.value?.trim() || "", repo_context: repoContext || "" };
+        const res = await fetch("/api/explain-relationship", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        const data = await res.json();
+        if (!res.ok || !data.explanation) throw new Error(data.error || `HTTP ${res.status}`);
+        link.ai_explanation = data.explanation;
+        const html = typeof marked !== "undefined" ? marked.parse(data.explanation) : data.explanation.replace(/\n/g, "<br>");
+        container.innerHTML = `
+          <div class="ai-panel">
+            <div class="ai-panel-header">✦ DeepSeek Analysis</div>
+            <div class="ai-panel-body">${html}</div>
+            <div class="ai-panel-actions">
+              <button class="ai-btn" onclick="reAnalyzeCurrentLink()">Re-analyze</button>
+              <button class="ai-btn" onclick="simplifyCurrentResponse('edge')">Explain for lower level</button>
+              <button class="ai-btn ghost" onclick="saveRelationshipJson()">Save JSON</button>
             </div>
-            <div class="actions">
-              <button class="ai-btn" onclick="explainRelationshipWithAI()">Analyze Relationship</button>
-            </div>
-          </div>
-        `;
-
-      if (link.examples?.length) {
-        html += `<h2 style="margin-top:20px">Examples</h2>`;
-        html += renderList(
-          link.examples.map((example) => `${example.from} -> ${example.to}`),
-          "No concrete examples were recorded for this relationship."
-        );
+          </div>`;
+      } catch (err) {
+        container.innerHTML = `
+          <div class="ai-panel">
+            <div class="ai-panel-header">DeepSeek Analysis</div>
+            <div class="ai-error">Error: ${escapeHtml(err.message)}</div>
+            <div class="ai-panel-actions"><button class="ai-btn" onclick="reAnalyzeCurrentLink()">Try Again</button></div>
+          </div>`;
       }
-
-      content.innerHTML = html;
-      panel.classList.add("open");
     }
 
+    window.reAnalyzeCurrentLink = function () { const link = window.activeLink; if (!link) return; const container = document.getElementById("aiAnalysisContainer"); if (container) analyzeEdgeWithDeepSeek(link, container); };
 
-
-    async function explainRelationshipWithAI() {
-      const link = window.activeLink;
-      if (!link) return;
-
-      const box = document.getElementById("aiExplanationBox");
-      const text = document.getElementById("aiExplanationText");
-      const actions = box.querySelector(".actions");
-
-      const source = findNodeById(nodeIdOf(link.source));
-      const target = findNodeById(nodeIdOf(link.target));
-
-      text.innerHTML = '<span class="loading-dots">Thinking</span>';
-      actions.style.display = "none";
-
+    /* ─── DeepSeek NODE analysis (file/module click) ─── */
+    async function analyzeNodeWithDeepSeek(node, container) {
+      if (!node) return;
+      container.innerHTML = `
+        <div class="ai-panel">
+          <div class="ai-panel-header"><div class="ai-spinner"></div>DeepSeek Analysis</div>
+          <div class="ai-panel-body"><em style="color:#808098">Analyzing this ${node.type}...</em></div>
+        </div>`;
       try {
         const payload = {
-          source_node: source,
-          target_node: target,
-          edge: link,
-          deepseek_key: document.getElementById("deepseekKeyInput")?.value || "",
-          repo_context: repoContext || ""
+          node: node,
+          deepseek_key: deepseekKeyInput?.value?.trim() || "",
+          github_token: githubTokenInput?.value?.trim() || "",
+          repo_context: repoContext || null
         };
-
-        const response = await fetch("/api/explain-relationship", {
+        const res = await fetch("/api/explain-node", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
+        const data = await res.json();
+        if (!res.ok || !data.explanation) throw new Error(data.error || `HTTP ${res.status}`);
 
-        const data = await response.json();
-        if (data.explanation) {
-          text.innerHTML = marked.parse
-            ? marked.parse(data.explanation)
-            : data.explanation.replace(/\n/g, "<br>");
-
-          // Save the explanation on the link object so it can be exported
-          link.ai_explanation = data.explanation;
-
-          actions.innerHTML = `
-              <button class="ai-btn secondary" onclick="saveRelationshipJson()">Save as JSON</button>
-              <button class="ai-btn secondary" onclick="explainRelationshipWithAI()">Re-analyze</button>
-            `;
-          actions.style.display = "flex";
-        } else {
-          throw new Error(data.error || "Failed to get explanation");
-        }
+        node._ai_analysis = data.explanation;
+        const html = typeof marked !== "undefined" ? marked.parse(data.explanation) : data.explanation.replace(/\n/g, "<br>");
+        container.innerHTML = `
+          <div class="ai-panel">
+            <div class="ai-panel-header">✦ DeepSeek File Analysis</div>
+            <div class="ai-panel-body">${html}</div>
+            <div class="ai-panel-actions">
+              <button class="ai-btn" onclick="reAnalyzeCurrentNode()">Re-analyze</button>
+              <button class="ai-btn" onclick="simplifyCurrentResponse('node')">Explain for lower level</button>
+            </div>
+          </div>`;
       } catch (err) {
-        text.innerHTML = `<span style="color:#f87171">Error: ${err.message}</span>`;
-        actions.style.display = "flex";
-        actions.innerHTML = `<button class="ai-btn" onclick="explainRelationshipWithAI()">Try Again</button>`;
+        container.innerHTML = `
+          <div class="ai-panel">
+            <div class="ai-panel-header">AI Analysis</div>
+            <div class="ai-error">Error: ${escapeHtml(err.message)}</div>
+            <div class="ai-panel-actions"><button class="ai-btn" onclick="reAnalyzeCurrentNode()">Try Again</button></div>
+          </div>`;
       }
     }
+    window.reAnalyzeCurrentNode = function () {
+      const node = window.activeNode;
+      if (!node) return;
+      const container = document.getElementById("aiNodeContainer");
+      if (container) analyzeNodeWithDeepSeek(node, container);
+    };
 
-    function saveRelationshipJson() {
-      const link = window.activeLink;
-      if (!link || !link.ai_explanation) return;
+    window.simplifyCurrentResponse = async function (type) {
+      const target = type === "node" ? window.activeNode : window.activeLink;
+      if (!target) return;
+      const existingExplanation = type === "node" ? target._ai_analysis : target.ai_explanation;
+      if (!existingExplanation) return;
+      
+      const containerId = type === "node" ? "aiNodeContainer" : "aiAnalysisContainer";
+      const container = document.getElementById(containerId);
+      if (!container) return;
 
-      const source = findNodeById(nodeIdOf(link.source));
-      const target = findNodeById(nodeIdOf(link.target));
+      container.innerHTML = `<div class="ai-panel"><div class="ai-panel-header"><div class="ai-spinner"></div>Simplifying...</div><div class="ai-panel-body"><em style="color:#808098">Making it easier to understand…</em></div></div>`;
 
-      const data = {
-        relationship: {
-          from: source.id,
-          to: target.id,
-          type: link.type,
-          raw: link.raw
-        },
-        explanation: link.ai_explanation,
-        analyzed_at: new Date().toISOString()
-      };
+      try {
+        const payload = { 
+          text: existingExplanation, 
+          deepseek_key: deepseekKeyInput?.value?.trim() || "" 
+        };
+        const res = await fetch("/api/simplify-explanation", { 
+          method: "POST", 
+          headers: { "Content-Type": "application/json" }, 
+          body: JSON.stringify(payload) 
+        });
+        const data = await res.json();
+        if (!res.ok || !data.explanation) throw new Error(data.error || `HTTP ${res.status}`);
 
+        const html = typeof marked !== "undefined" ? marked.parse(data.explanation) : data.explanation.replace(/\n/g, "<br>");
+        container.innerHTML = `
+          <div class="ai-panel simplified">
+            <div class="ai-panel-header">💡 Simplified Explanation</div>
+            <div class="ai-panel-body">${html}</div>
+            <div class="ai-panel-actions">
+              <button class="ai-btn" onclick="${type === "node" ? "reAnalyzeCurrentNode()" : "reAnalyzeCurrentLink()"}">Back to Full Analysis</button>
+            </div>
+          </div>`;
+      } catch (err) {
+        container.innerHTML = `<div class="ai-panel"><div class="ai-panel-header">Simplification Failed</div><div class="ai-error">${escapeHtml(err.message)}</div></div>`;
+      }
+    };
+    window.saveRelationshipJson = function () {
+      const link = window.activeLink; if (!link || !link.ai_explanation) return;
+      const source = findNodeById(nodeIdOf(link.source)), target = findNodeById(nodeIdOf(link.target));
+      const data = { relationship: { from: source?.id, to: target?.id, type: link.type, raw: link.raw }, explanation: link.ai_explanation, analyzed_at: new Date().toISOString() };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      const safeSource = source.id.replace(/[\/\.]/g, "_");
-      const safeTarget = target.id.replace(/[\/\.]/g, "_");
-      a.download = `${safeSource}_to_${safeTarget}_relation.json`;
-      a.click();
-      URL.revokeObjectURL(url);
+      const url = URL.createObjectURL(blob); const a = document.createElement("a");
+      a.href = url; a.download = `${(source?.id || "src").replace(/[\/\.]/g, "_")}_to_${(target?.id || "tgt").replace(/[\/\.]/g, "_")}_relation.json`;
+      a.click(); URL.revokeObjectURL(url);
+    };
+
+    /* ─── Panels ─── */
+    function renderRepoSnapshot() {
+      if (!repoContext && !(graphData && graphData.repository)) { repoSnapshot.classList.add("hidden"); repoSnapshot.innerHTML = ""; return; }
+      if (!repoContext) {
+        repoSnapshot.classList.remove("hidden");
+        repoSnapshot.innerHTML = `<h4>${escapeHtml(graphData.repository || "Loaded graph")}</h4><div class="metric-pills"><div class="metric-pill">${formatNumber(graphData?.stats?.module_count || graphData?.views?.overview?.nodes?.length || 0)} modules</div><div class="metric-pill">${formatNumber(graphData?.stats?.total_files || 0)} files</div></div>`;
+        return;
+      }
+      const lt = (repoContext.languages || []).map(e => e.name).join(", ");
+      const as = repoContext.ai_summary_status === "generated" && repoContext.ai_summary ? repoContext.ai_summary.replace(/[#>*_`-]/g, " ").replace(/\s+/g, " ").trim() : repoContext.ai_summary_status === "missing_key" ? "DeepSeek summary is available when a DeepSeek key is configured." : repoContext.ai_summary_status === "failed" ? "DeepSeek summary could not be generated for this request." : "";
+      repoSnapshot.classList.remove("hidden");
+      repoSnapshot.innerHTML = `<h4>${escapeHtml(repoContext.full_name || graphData?.repository || "Loaded graph")}</h4>${repoContext.description ? `<p>${escapeHtml(repoContext.description)}</p>` : ""}<div class="metric-pills"><div class="metric-pill">Health ${escapeHtml(String(repoContext.health_score ?? "N/A"))}${repoContext.health_grade ? ` (${escapeHtml(String(repoContext.health_grade))})` : " "}</div><div class="metric-pill">${formatNumber(repoContext.stars)} stars</div><div class="metric-pill">${formatNumber(repoContext.forks)} forks</div><div class="metric-pill">${formatNumber(repoContext.open_issues)} open issues</div></div>${lt ? `<p><strong>Languages:</strong> ${escapeHtml(lt)}</p>` : ""}${as ? `<div class="ai-summary">${typeof marked !== "undefined" ? marked.parse(as) : escapeHtml(as)}</div>` : ""}`;
+    }
+
+    function updateSummaryCard() {
+      const title = summaryCard.querySelector("h2"), section = summaryCard.querySelector(".summary-section-title");
+      if (!graphData) { title.textContent = "Readable Graphs"; summaryIntro.textContent = "Load a graph JSON to see a module overview first, then drill into key files and full structure when needed."; section.textContent = "Why This View"; summaryList.innerHTML = ""; renderRepoSnapshot(); return; }
+      title.textContent = currentViewMeta.title || VIEW_CONFIG[currentView].title;
+      summaryIntro.textContent = currentViewMeta.description || VIEW_CONFIG[currentView].fallbackDescription;
+      renderRepoSnapshot();
+      let items = [];
+      if (searchQuery) { section.textContent = "Search Results"; items = lastSearchMatches.slice(0, 6).map(n => ({ id: n.id, title: n.label || n.name || n.id, meta: connectionSummary(n) })); }
+      else if (currentView === "overview") { section.textContent = VIEW_CONFIG.overview.sectionTitle; items = [...visibleNodes].filter(n => n.type === "module").sort((a, b) => (b.file_count || 0) - (a.file_count || 0) || a.id.localeCompare(b.id)).slice(0, 6).map(n => ({ id: n.id, title: n.label || n.name || n.id, meta: `${n.file_count || 0} files${n.dominant_extensions?.length ? ` · ${n.dominant_extensions.join(", ")}` : ""}` })); }
+      else { section.textContent = VIEW_CONFIG[currentView].sectionTitle; items = [...visibleNodes].filter(n => n.type === "file").sort((a, b) => importanceForNode(b) - importanceForNode(a) || a.id.localeCompare(b.id)).slice(0, 6).map(n => ({ id: n.id, title: n.name || n.id, meta: connectionSummary(n) })); }
+      if (!items.length) { summaryList.innerHTML = '<div class="summary-item"><strong>No nodes in this view</strong><span>Adjust filters, clear search, or switch views.</span></div>'; return; }
+      summaryList.innerHTML = items.map(i => `<button class="summary-item" data-node-id="${escapeHtml(i.id)}"><strong>${escapeHtml(i.title)}</strong><span>${escapeHtml(i.meta)}</span></button>`).join("");
+    }
+
+    function renderList(items, emptyMsg) {
+      if (!items.length) return `<div class="mini-note">${escapeHtml(emptyMsg)}</div>`;
+      return `<ul class="def-list">${items.map(i => `<li>${escapeHtml(i)}</li>`).join("")}</ul>`;
+    }
+
+    function moduleRelations(moduleId) {
+      const ov = ensureOverviewView(), incoming = [], outgoing = [];
+      (ov.edges || []).forEach(e => { const s = e.from.replace(/^module:/, ""), t = e.to.replace(/^module:/, ""); if (s === moduleId) outgoing.push(`${humanModuleName(t)} (${e.weight || 1})`); if (t === moduleId) incoming.push(`${humanModuleName(s)} (${e.weight || 1})`); });
+      return { incoming, outgoing };
+    }
+
+    function fileRelations(nodeId) {
+      const incoming = [], outgoing = [];
+      (graphData?.edges || []).forEach(e => { if (e.type !== "imports") return; if (e.from === nodeId) outgoing.push(e.to); if (e.to === nodeId) incoming.push(e.from); });
+      return { incoming: [...new Set(incoming)].sort(), outgoing: [...new Set(outgoing)].sort() };
+    }
+
+    function directoryChildren(nodeId) { return (graphData?.edges || []).filter(e => e.type === "contains" && e.from === nodeId).map(e => e.to).sort().slice(0, 16); }
+
+    function showRelationshipPanel(link) {
+      window.activeLink = link;
+      const panel = document.getElementById("sidePanel"), content = document.getElementById("panelContent");
+      const source = findNodeById(nodeIdOf(link.source)), target = findNodeById(nodeIdOf(link.target));
+      const sourceName = source?.label || source?.name || nodeIdOf(link.source), targetName = target?.label || target?.name || nodeIdOf(link.target);
+      let html = `<h2>Relationship</h2><h3>${escapeHtml(linkSummary(link))}</h3>`;
+      const edgeDescriptions = { module_imports: `Files in <strong>${escapeHtml(sourceName)}</strong> depend on files in <strong>${escapeHtml(targetName)}</strong>.`, imports: `A direct code dependency. Changes to the target may break the source.`, contains: `A structural relationship showing folder hierarchy.` };
+      html += `<div class="mini-note">${edgeDescriptions[link.type] || ""}</div>`;
+      html += `<div style="margin:8px 0"><span class="tag" style="background:${link.color}22;color:${link.color};border:1px solid ${link.color}44">${escapeHtml(relationLabel(link.type))}</span></div>`;
+      const rows = [{ label: "From", value: source?.id || nodeIdOf(link.source) }, { label: "To", value: target?.id || nodeIdOf(link.target) }, { label: "Weight", value: link.type === "module_imports" ? `${formatNumber(link.weight || 1)} file-level imports` : `${formatNumber(link.weight || 1)}` }, { label: "Import Path", value: link.raw || "" }, { label: "Source Module", value: source?.module ? humanModuleName(source.module) : "" }, { label: "Target Module", value: target?.module ? humanModuleName(target.module) : "" }].filter(r => r.value !== undefined && r.value !== null && r.value !== "");
+      html += rows.map(r => `<div class="detail-row"><span class="label">${escapeHtml(r.label)}</span><span class="value" style="font-size:11px;word-break:break-all">${escapeHtml(r.value)}</span></div>`).join("");
+      html += `<div id="aiAnalysisContainer"></div>`;
+      content.innerHTML = html; panel.classList.add("open");
+      const container = document.getElementById("aiAnalysisContainer");
+      if (hasDeepSeekKey()) { analyzeEdgeWithDeepSeek(link, container); }
+      else { container.innerHTML = `<div class="ai-panel" style="margin-top:16px"><div class="ai-panel-header">DeepSeek Analysis</div><p class="no-key-note">Configure a DeepSeek API key to get instant AI analysis of this dependency relationship. Add your key in the Load Graph panel under "Use My Credentials".</p></div>`; }
     }
 
     function showSidePanel(node) {
-      const panel = document.getElementById("sidePanel");
-      const content = document.getElementById("panelContent");
+      const panel = document.getElementById("sidePanel"), content = document.getElementById("panelContent");
       const color = node.color || EXT_COLORS.default;
       let html = "";
-
       if (node.type === "module") {
-        const relations = moduleRelations(
-          node.module || node.id.replace(/^module:/, "")
-        );
-        html += "<h2>Module Overview</h2>";
-        html += `<h3>${escapeHtml(node.label || node.name || node.id)}</h3>`;
+        const rel = moduleRelations(node.module || node.id.replace(/^module:/, ""));
+        html += `<h2>Module Overview</h2><h3>${escapeHtml(node.label || node.name || node.id)}</h3>`;
         html += `<div class="mini-note">This view groups related files together so the architecture reads like a map instead of a knot of individual files.</div>`;
         html += `<div style="margin:8px 0"><span class="tag" style="background:${color}22;color:${color};border:1px solid ${color}44">module</span></div>`;
-        html += `<div class="detail-row"><span class="label">Path</span><span class="value">${escapeHtml(
-          node.module || "."
-        )}</span></div>`;
-        html += `<div class="detail-row"><span class="label">Files</span><span class="value">${(
-          node.file_count || 0
-        ).toLocaleString()}</span></div>`;
-        if (node.total_lines)
-          html += `<div class="detail-row"><span class="label">Lines</span><span class="value">${node.total_lines.toLocaleString()}</span></div>`;
-        if (node.dominant_extensions?.length)
-          html += `<div class="detail-row"><span class="label">Languages</span><span class="value">${escapeHtml(
-            node.dominant_extensions.join(", ")
-          )}</span></div>`;
-        if (node.entry_points?.length) {
-          html += `<h2 style="margin-top:20px">Entry Points (${node.entry_points.length})</h2>`;
-          html += renderList(
-            node.entry_points,
-            "No entry points in this module."
-          );
-        }
-        if (node.top_files?.length) {
-          html += `<h2 style="margin-top:20px">Representative Files</h2>`;
-          html += `<ul class="def-list">${node.top_files
-            .map(
-              (file) =>
-                `<li>${escapeHtml(file.id)}${file.is_entry_point ? " (entry)" : ""
-                }</li>`
-            )
-            .join("")}</ul>`;
-        }
-        html += `<h2 style="margin-top:20px">Depends On</h2>${renderList(
-          relations.outgoing,
-          "No cross-module dependencies from this module."
-        )}`;
-        html += `<h2 style="margin-top:20px">Used By</h2>${renderList(
-          relations.incoming,
-          "No cross-module dependencies into this module."
-        )}`;
+        html += `<div class="detail-row"><span class="label">Path</span><span class="value">${escapeHtml(node.module || ".")}</span></div>`;
+        html += `<div class="detail-row"><span class="label">Files</span><span class="value">${(node.file_count || 0).toLocaleString()}</span></div>`;
+        if (node.total_lines) html += `<div class="detail-row"><span class="label">Lines</span><span class="value">${node.total_lines.toLocaleString()}</span></div>`;
+        if (node.dominant_extensions?.length) html += `<div class="detail-row"><span class="label">Languages</span><span class="value">${escapeHtml(node.dominant_extensions.join(", "))}</span></div>`;
+        if (node.entry_points?.length) { html += `<h2 style="margin-top:20px">Entry Points (${node.entry_points.length})</h2>`; html += renderList(node.entry_points, "No entry points."); }
+        if (node.top_files?.length) { html += `<h2 style="margin-top:20px">Representative Files</h2>`; html += `<ul class="def-list">${node.top_files.map(f => `<li>${escapeHtml(f.id)}${f.is_entry_point ? " (entry)" : ""}</li>`).join("")}</ul>`; }
+        html += `<h2 style="margin-top:20px">Depends On</h2>${renderList(rel.outgoing, "No cross-module dependencies.")}`;
+        html += `<h2 style="margin-top:20px">Used By</h2>${renderList(rel.incoming, "No cross-module dependencies into this module.")}`;
       } else if (node.type === "directory") {
-        html += "<h2>Directory Details</h2>";
-        html += `<h3>${escapeHtml(node.name || node.id)}</h3>`;
+        html += `<h2>Directory Details</h2><h3>${escapeHtml(node.name || node.id)}</h3>`;
         html += `<div class="mini-note">Directories are most useful in the Structure view, where folder layout and file dependencies are both visible.</div>`;
         html += `<div style="margin:8px 0"><span class="tag" style="background:${color}22;color:${color};border:1px solid ${color}44">directory</span></div>`;
-        html += `<div class="detail-row"><span class="label">Path</span><span class="value" style="font-size:11px;word-break:break-all">${escapeHtml(
-          node.id
-        )}</span></div>`;
-        html += `<div class="detail-row"><span class="label">Children</span><span class="value">${(
-          node.child_count || 0
-        ).toLocaleString()}</span></div>`;
-        html += `<div class="detail-row"><span class="label">Module</span><span class="value">${escapeHtml(
-          humanModuleName(node.module || ".")
-        )}</span></div>`;
-        html += `<h2 style="margin-top:20px">Contains</h2>${renderList(
-          directoryChildren(node.id),
-          "No visible children for this directory."
-        )}`;
+        html += `<div class="detail-row"><span class="label">Path</span><span class="value" style="font-size:11px;word-break:break-all">${escapeHtml(node.id)}</span></div>`;
+        html += `<div class="detail-row"><span class="label">Children</span><span class="value">${(node.child_count || 0).toLocaleString()}</span></div>`;
+        html += `<div class="detail-row"><span class="label">Module</span><span class="value">${escapeHtml(humanModuleName(node.module || "."))}</span></div>`;
+        html += `<h2 style="margin-top:20px">Contains</h2>${renderList(directoryChildren(node.id), "No visible children.")}`;
       } else {
-        const relations = fileRelations(node.id);
-        const ext = node.extension || "file";
-        html += "<h2>File Details</h2>";
-        html += `<h3>${escapeHtml(node.name || node.id)}</h3>`;
-        html += `<div class="mini-note">Use Focus view for a readable dependency slice, then switch to Structure if you need the folder context around this file.</div>`;
-        html += `<div style="margin:8px 0">
-          <span class="tag" style="background:${color}22;color:${color};border:1px solid ${color}44">${escapeHtml(
-          ext
-        )}</span>
-          <span class="tag" style="background:rgba(255,255,255,0.05);color:#cfd2f3;border:1px solid rgba(255,255,255,0.08)">${escapeHtml(
-          roleLabel(node.role || "source")
-        )}</span>
-          ${node.is_entry_point
-            ? '<span class="tag" style="background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b44">Entry Point</span>'
-            : ""
-          }
-        </div>`;
-        html += `<div class="detail-row"><span class="label">Path</span><span class="value" style="font-size:11px;word-break:break-all">${escapeHtml(
-          node.id
-        )}</span></div>`;
-        html += `<div class="detail-row"><span class="label">Module</span><span class="value">${escapeHtml(
-          humanModuleName(node.module || ".")
-        )}</span></div>`;
-        if (node.size)
-          html += `<div class="detail-row"><span class="label">Size</span><span class="value">${formatBytes(
-            node.size
-          )}</span></div>`;
-        if (node.lines)
-          html += `<div class="detail-row"><span class="label">Lines</span><span class="value">${node.lines.toLocaleString()}</span></div>`;
-        if (node.inbound_imports !== undefined)
-          html += `<div class="detail-row"><span class="label">Incoming</span><span class="value">${node.inbound_imports.toLocaleString()}</span></div>`;
-        if (node.outbound_imports !== undefined)
-          html += `<div class="detail-row"><span class="label">Outgoing</span><span class="value">${node.outbound_imports.toLocaleString()}</span></div>`;
-        if (node.definitions?.length) {
-          html += `<h2 style="margin-top:20px">Definitions (${node.definitions.length})</h2>`;
-          html += `<ul class="def-list">${node.definitions
-            .map(
-              (def) =>
-                `<li>${escapeHtml(
-                  def.name
-                )} <span style="color:#6366f1;font-size:11px">${escapeHtml(
-                  def.type
-                )}</span></li>`
-            )
-            .join("")}</ul>`;
-        }
-        if (node.imports?.length) {
-          html += `<h2 style="margin-top:20px">Imports (${node.imports.length})</h2>`;
-          html += renderList(
-            node.imports.slice(0, 16),
-            "No imports recorded."
-          );
-        }
-        html += `<h2 style="margin-top:20px">Depends On</h2>${renderList(
-          relations.outgoing.slice(0, 16),
-          "No outgoing dependencies inside the repo."
-        )}`;
-        html += `<h2 style="margin-top:20px">Used By</h2>${renderList(
-          relations.incoming.slice(0, 16),
-          "No incoming dependencies inside the repo."
-        )}`;
+        const rel = fileRelations(node.id), ext = node.extension || "file";
+        html += `<h2>File Details</h2><h3>${escapeHtml(node.name || node.id)}</h3>`;
+        html += `<div class="mini-note">Use Focus view for a readable dependency slice, then switch to Structure if you need the folder context.</div>`;
+        html += `<div style="margin:8px 0"><span class="tag" style="background:${color}22;color:${color};border:1px solid ${color}44">${escapeHtml(ext)}</span><span class="tag" style="background:rgba(255,255,255,0.05);color:#cfd2f3;border:1px solid rgba(255,255,255,0.08)">${escapeHtml(roleLabel(node.role || "source"))}</span>${node.is_entry_point ? '<span class="tag" style="background:#f59e0b22;color:#f59e0b;border:1px solid #f59e0b44">Entry Point</span>' : ""}</div>`;
+        html += `<div class="detail-row"><span class="label">Path</span><span class="value" style="font-size:11px;word-break:break-all">${escapeHtml(node.id)}</span></div>`;
+        html += `<div class="detail-row"><span class="label">Module</span><span class="value">${escapeHtml(humanModuleName(node.module || "."))}</span></div>`;
+        if (node.size) html += `<div class="detail-row"><span class="label">Size</span><span class="value">${formatBytes(node.size)}</span></div>`;
+        if (node.lines) html += `<div class="detail-row"><span class="label">Lines</span><span class="value">${node.lines.toLocaleString()}</span></div>`;
+        if (node.inbound_imports !== undefined) html += `<div class="detail-row"><span class="label">Incoming</span><span class="value">${node.inbound_imports.toLocaleString()}</span></div>`;
+        if (node.outbound_imports !== undefined) html += `<div class="detail-row"><span class="label">Outgoing</span><span class="value">${node.outbound_imports.toLocaleString()}</span></div>`;
+        if (node.definitions?.length) { html += `<h2 style="margin-top:20px">Definitions (${node.definitions.length})</h2>`; html += `<ul class="def-list">${node.definitions.map(d => `<li>${escapeHtml(d.name)} <span style="color:#6366f1;font-size:11px">${escapeHtml(d.type)}</span></li>`).join("")}</ul>`; }
+        if (node.imports?.length) { html += `<h2 style="margin-top:20px">Imports (${node.imports.length})</h2>`; html += renderList(node.imports.slice(0, 16), "No imports recorded."); }
+        html += `<h2 style="margin-top:20px">Depends On</h2>${renderList(rel.outgoing.slice(0, 16), "No outgoing dependencies.")}`;
+        html += `<h2 style="margin-top:20px">Used By</h2>${renderList(rel.incoming.slice(0, 16), "No incoming dependencies.")}`;
       }
-
+      // Add AI analysis section at the bottom
+      html += `<div id="aiNodeContainer"></div>`;
       content.innerHTML = html;
       panel.classList.add("open");
+
+      // Trigger AI analysis of this node
+      window.activeNode = node;
+      const aiCont = document.getElementById("aiNodeContainer");
+      if (aiCont) {
+        if (hasDeepSeekKey()) {
+          analyzeNodeWithDeepSeek(node, aiCont);
+        } else {
+          aiCont.innerHTML = `
+            <div class="ai-panel" style="margin-top:16px">
+              <div class="ai-panel-header">DeepSeek Analysis</div>
+              <p class="no-key-note">
+                Configure a DeepSeek API key to get instant AI analysis of this ${node.type}.
+                Add your key in the Load Graph panel under "Use My Credentials".
+              </p>
+            </div>`;
+        }
+      }
     }
 
-    function closeSidePanel() {
-      document.getElementById("sidePanel").classList.remove("open");
-      selectedNodeId = null;
-      selectedLinkKey = null;
-      refreshHighlights();
-    }
+    function closeSidePanel() { document.getElementById("sidePanel").classList.remove("open"); selectedNodeId = null; selectedLinkKey = null; refreshHighlights(); }
 
     function focusNodeById(nodeId, openPanel = true) {
-      let node = visibleNodes.find((item) => item.id === nodeId);
-      if (
-        !node &&
-        currentNodes.some((item) => item.id === nodeId) &&
-        activeFilters.size
-      ) {
-        activeFilters.clear();
-        buildFilters();
-        applyFilters();
-        node = visibleNodes.find((item) => item.id === nodeId);
-      }
+      let node = visibleNodes.find(n => n.id === nodeId);
+      if (!node && currentNodes.some(n => n.id === nodeId) && activeFilters.size) { activeFilters.clear(); buildFilters(); applyFilters(); node = visibleNodes.find(n => n.id === nodeId); }
       if (!node) return;
-
-      selectedNodeId = node.id;
-      selectedLinkKey = null;
-      refreshHighlights();
-
-      if (
-        graphInstance &&
-        typeof graphInstance.cameraPosition === "function"
-      ) {
-        const distance = 150;
-        const length = Math.hypot(node.x || 0, node.y || 0, node.z || 0) || 1;
-        const distRatio = 1 + distance / length;
-        graphInstance.cameraPosition(
-          {
-            x: (node.x || 0) * distRatio,
-            y: (node.y || 0) * distRatio,
-            z: (node.z || 0) * distRatio,
-          },
-          node,
-          1200
-        );
+      selectedNodeId = node.id; selectedLinkKey = null; refreshHighlights();
+      if (graphInstance && typeof graphInstance.cameraPosition === "function") {
+        const dist = 150, len = Math.hypot(node.x || 0, node.y || 0, node.z || 0) || 1, dr = 1 + dist / len;
+        graphInstance.cameraPosition({ x: (node.x || 0) * dr, y: (node.y || 0) * dr, z: (node.z || 0) * dr }, node, 1200);
       }
-
       if (openPanel) showSidePanel(node);
     }
 
     function focusLink(link, openPanel = true) {
       if (!link) return;
-      selectedNodeId = null;
-      selectedLinkKey = link.key || linkKey(link);
-      refreshHighlights();
-
-      const source = findNodeById(nodeIdOf(link.source));
-      const target = findNodeById(nodeIdOf(link.target));
-      const sourcePos =
-        typeof link.source === "object" ? link.source : source;
-      const targetPos =
-        typeof link.target === "object" ? link.target : target;
-
-      if (
-        graphInstance &&
-        typeof graphInstance.cameraPosition === "function" &&
-        sourcePos &&
-        targetPos
-      ) {
-        const midpoint = {
-          x: ((sourcePos.x || 0) + (targetPos.x || 0)) / 2,
-          y: ((sourcePos.y || 0) + (targetPos.y || 0)) / 2,
-          z: ((sourcePos.z || 0) + (targetPos.z || 0)) / 2,
-        };
-        const distance = 180;
-        const length =
-          Math.hypot(midpoint.x || 0, midpoint.y || 0, midpoint.z || 0) || 1;
-        const distRatio = 1 + distance / length;
-        graphInstance.cameraPosition(
-          {
-            x: midpoint.x * distRatio,
-            y: midpoint.y * distRatio,
-            z: midpoint.z * distRatio,
-          },
-          midpoint,
-          1200
-        );
+      selectedNodeId = null; selectedLinkKey = link.key || linkKey(link); refreshHighlights();
+      const src = findNodeById(nodeIdOf(link.source)), tgt = findNodeById(nodeIdOf(link.target));
+      const sp = typeof link.source === "object" ? link.source : src, tp = typeof link.target === "object" ? link.target : tgt;
+      if (graphInstance && typeof graphInstance.cameraPosition === "function" && sp && tp) {
+        const mid = { x: ((sp.x || 0) + (tp.x || 0)) / 2, y: ((sp.y || 0) + (tp.y || 0)) / 2, z: ((sp.z || 0) + (tp.z || 0)) / 2 };
+        const dist = 180, len = Math.hypot(mid.x || 0, mid.y || 0, mid.z || 0) || 1, dr = 1 + dist / len;
+        graphInstance.cameraPosition({ x: mid.x * dr, y: mid.y * dr, z: mid.z * dr }, mid, 1200);
       }
-
       if (openPanel) showRelationshipPanel(link);
     }
 
     function resolveNodeColor(node) {
       if (selectedNodeId === node.id) return "#ffffff";
       if (selectedLinkKey && highlightNodeIds.has(node.id)) return "#ffffff";
-      if (highlightNodeIds.size && !highlightNodeIds.has(node.id))
-        return "rgba(68, 72, 98, 0.20)";
+      if (highlightNodeIds.size && !highlightNodeIds.has(node.id)) return "rgba(68,72,98,0.20)";
       return node.color;
     }
 
     function resolveLinkColor(link) {
       if ((link.key || linkKey(link)) === selectedLinkKey) return "#fef3c7";
-      if (
-        highlightLinkIds.size &&
-        !highlightLinkIds.has(link.key || linkKey(link))
-      ) {
-        return "rgba(255,255,255,0.03)";
-      }
+      if (highlightLinkIds.size && !highlightLinkIds.has(link.key || linkKey(link))) return "rgba(255,255,255,0.03)";
       return link.color;
     }
 
     function handleNodeHover(node) {
-      const tooltip = document.getElementById("tooltip");
-      if (node) {
-        tooltip.style.display = "block";
-        tooltip.innerHTML = `<strong>${escapeHtml(
-          node.label || node.name || node.id
-        )}</strong><br><span style="color:#a6abd0">${escapeHtml(
-          connectionSummary(node)
-        )}</span><br><span style="color:#808098">${escapeHtml(
-          node.id
-        )}</span>`;
-        document.addEventListener("mousemove", moveTooltip);
-      } else {
-        tooltip.style.display = "none";
-        document.removeEventListener("mousemove", moveTooltip);
-      }
+      const tt = document.getElementById("tooltip");
+      if (node) { tt.style.display = "block"; tt.innerHTML = `<strong>${escapeHtml(node.label || node.name || node.id)}</strong><br><span style="color:#a6abd0">${escapeHtml(connectionSummary(node))}</span><br><span style="color:#808098">${escapeHtml(node.id)}</span>`; document.addEventListener("mousemove", moveTooltip); }
+      else { tt.style.display = "none"; document.removeEventListener("mousemove", moveTooltip); }
       document.body.style.cursor = node ? "pointer" : "default";
     }
 
     function handleLinkHover(link) {
-      const tooltip = document.getElementById("tooltip");
+      const tt = document.getElementById("tooltip");
       if (link) {
-        tooltip.style.display = "block";
-        tooltip.innerHTML = `<strong>${escapeHtml(
-          linkSummary(link)
-        )}</strong><br><span style="color:#a6abd0">${escapeHtml(
-          relationLabel(link.type)
-        )}</span>${link.raw
-          ? `<br><span style="color:#808098">${escapeHtml(link.raw)}</span>`
-          : ""
-          }`;
+        const hasKey = hasDeepSeekKey();
+        tt.style.display = "block";
+        tt.innerHTML = `<strong>${escapeHtml(linkSummary(link))}</strong><br><span style="color:#a6abd0">${escapeHtml(relationLabel(link.type))}</span>${link.raw ? `<br><span style="color:#808098">${escapeHtml(link.raw)}</span>` : ""}<br><span style="color:${hasKey ? "#818cf8" : "#606078"};font-size:11px">${hasKey ? "Click → DeepSeek analysis" : "Click → relationship details"}</span>`;
         document.addEventListener("mousemove", moveTooltip);
-      } else {
-        tooltip.style.display = "none";
-        document.removeEventListener("mousemove", moveTooltip);
-      }
+      } else { tt.style.display = "none"; document.removeEventListener("mousemove", moveTooltip); }
       document.body.style.cursor = link ? "pointer" : "default";
     }
 
-    function moveTooltip(event) {
-      const tooltip = document.getElementById("tooltip");
-      tooltip.style.left = `${event.clientX + 14}px`;
-      tooltip.style.top = `${event.clientY + 14}px`;
-    }
+    function moveTooltip(e) { const tt = document.getElementById("tooltip"); tt.style.left = `${e.clientX + 14}px`; tt.style.top = `${e.clientY + 14}px`; }
 
-    function handleNodeClick(node) {
-      if (!node) return;
-      focusNodeById(node.id, true);
-    }
-
-    function handleLinkClick(link) {
-      if (!link) return;
-      focusLink(link, true);
-    }
+    function handleNodeClick(node) { if (!node) return; focusNodeById(node.id, true); }
+    function handleLinkClick(link) { if (!link) return; focusLink(link, true); }
 
     function setView(view) {
       if (!graphData) return;
-      currentView = view;
-      selectedNodeId = null;
-      buildCurrentViewGraph();
-      buildFilters();
-      updateViewButtons();
-      configureLayout();
-      applyFilters();
-      fitGraph();
+      currentView = view; selectedNodeId = null;
+      buildCurrentViewGraph(); buildFilters(); updateViewButtons(); configureLayout(); applyFilters(); fitGraph();
     }
 
+    /* ─── Graph init ─── */
     function initGraph(data, context = null) {
-      graphData = data;
-      graphData.views = graphData.views || {};
-      fullNodeLookup = new Map(
-        (data.nodes || []).map((node) => [node.id, node])
-      );
+      graphData = data; graphData.views = graphData.views || {};
+      fullNodeLookup = new Map((data.nodes || []).map(n => [n.id, n]));
       repoContext = context;
-
       const container = document.getElementById("graph-container");
       container.innerHTML = "";
-      searchQuery = "";
-      searchInput.value = "";
-      activeFilters.clear();
-      selectedNodeId = null;
+      searchQuery = ""; searchInput.value = ""; activeFilters.clear(); selectedNodeId = null;
+      lightsInjected = false; // reset so lights are added to the new scene
 
       graphInstance = ForceGraph3D()(container)
         .nodeId("id")
-        .nodeLabel(node => {
-          let roleStr = node.role ? ` (${node.role})` : '';
-          return `<strong>${node.name || node.id}</strong>${roleStr}`;
-        })
-        .nodeColor(node => resolveNodeColor(node))
-        .nodeVal(node => node.val)
-        .nodeThreeObject(node => {
-          // Create a custom sprite for the name label
-          const canvas = document.createElement('canvas');
-          const context = canvas.getContext('2d');
-          const name = node.name || node.id;
-          
-          // Better resolution for text
-          canvas.width = 256;
-          canvas.height = 64;
-          
-          context.font = 'Bold 24px Inter, sans-serif';
-          context.textAlign = 'center';
-          context.fillStyle = '#ffffff';
-          context.shadowColor = 'rgba(0,0,0,0.8)';
-          context.shadowBlur = 4;
-          context.fillText(name, 128, 40);
-          
-          const texture = new THREE.CanvasTexture(canvas);
-          const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true });
-          const sprite = new THREE.Sprite(spriteMaterial);
-          sprite.scale.set(12, 3, 1);
-          sprite.position.y = 6; // Lift it above the node
-          return sprite;
-        })
-        .nodeThreeObjectExtend(true)
-        .nodeOpacity(0.9)
-        .nodeResolution(16)
-        .linkColor(link => resolveLinkColor(link))
-        .linkWidth(link => link.width || 1)
-        .linkOpacity(0.4)
-        .linkDirectionalParticles(link => link.particles || 0)
-        .linkDirectionalParticleWidth(2)
-        .linkDirectionalParticleSpeed(0.005)
-        .backgroundColor("#0f172a")
-        .onNodeClick(node => {
+        .nodeLabel(n => `<strong>${n.name || n.id}</strong>${n.role ? ` (${n.role})` : ""}`)
+        .nodeColor(n => resolveNodeColor(n))
+        .nodeVal(n => n.val)
+        // Use our custom 3D sphere builder
+        .nodeThreeObject(n => buildNodeObject(n))
+        .nodeThreeObjectExtend(false)
+        .nodeOpacity(1.0)
+        .nodeResolution(32)
+        .linkColor(l => resolveLinkColor(l))
+        .linkWidth(l => l.width || 1)
+        .linkOpacity(0.75)
+        .linkDirectionalArrowLength(l => l.arrowLength || 0)
+        .linkDirectionalArrowRelPos(1)
+        .backgroundColor("#0a0a1a")
+        .onNodeClick((node) => {
           handleNodeClick(node);
-          const distance = 80;
-          const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
-          graphInstance.cameraPosition(
-            { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
-            node,
-            1500
-          );
+          if (node) {
+            const dist = 100, dr = 1 + dist / Math.hypot(node.x || 0.01, node.y || 0.01, node.z || 0.01);
+            graphInstance.cameraPosition({ x: (node.x || 0) * dr, y: (node.y || 0) * dr, z: (node.z || 0) * dr }, node, 1500);
+          }
         })
         .onNodeHover(handleNodeHover)
         .onLinkHover(handleLinkHover)
         .onLinkClick(handleLinkClick);
 
-      // Default the graph to structure to show off the containment edges immediately
+      // Inject lights into the Three.js scene after the graph renders
+      // We use a short timeout to ensure the scene is ready
+      setTimeout(() => injectSceneLights(graphInstance), 100);
+
       currentView = "structure";
       setView(currentView);
       hideDropOverlay();
+      downloadGraphBtn.hidden = !(currentGraphOrigin === "repo");
     }
 
-    searchInput.addEventListener("input", (event) => {
-      searchQuery = event.target.value.toLowerCase().trim();
-      refreshHighlights();
-    });
+    /* ─── Event wiring ─── */
+    searchInput.addEventListener("input", e => { searchQuery = e.target.value.toLowerCase().trim(); refreshHighlights(); });
+    searchInput.addEventListener("keydown", e => { if (e.key === "Enter" && lastSearchMatches[0]) focusNodeById(lastSearchMatches[0].id, true); });
+    summaryList.addEventListener("click", e => { const b = e.target.closest("[data-node-id]"); if (!b) return; focusNodeById(b.dataset.nodeId, true); });
+    document.querySelectorAll(".view-btn").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
+    document.getElementById("resetViewBtn").addEventListener("click", () => { searchQuery = ""; searchInput.value = ""; selectedNodeId = null; buildFilters(); applyFilters(); fitGraph(200); document.getElementById("sidePanel").classList.remove("open"); });
+    document.getElementById("openLoaderBtn").addEventListener("click", () => showDropOverlay());
+    document.getElementById("closeOverlayBtn").addEventListener("click", () => hideDropOverlay());
+    sourceModeSwitch.addEventListener("click", e => { const b = e.target.closest("[data-source-mode]"); if (!b) return; sourceMode = b.dataset.sourceMode; syncLoaderUI(); setLoaderStatus(""); });
+    credentialModeSwitch.addEventListener("click", e => { const b = e.target.closest("[data-credential-mode]"); if (!b) return; credentialMode = b.dataset.credentialMode; syncLoaderUI(); setLoaderStatus(""); });
 
-    searchInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" && lastSearchMatches[0]) {
-        focusNodeById(lastSearchMatches[0].id, true);
-      }
-    });
+    function updateSelectedFileName(file = null) { selectedFileName.textContent = file ? `Selected: ${file.name}` : "No file selected yet."; }
+    function openFilePicker() { document.getElementById("fileInput").click(); }
 
-    summaryList.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-node-id]");
-      if (!button) return;
-      focusNodeById(button.dataset.nodeId, true);
-    });
+    document.getElementById("chooseJsonBtn").addEventListener("click", () => { sourceMode = "upload"; syncLoaderUI(); openFilePicker(); });
+    secondaryUploadBtn.addEventListener("click", () => { sourceMode = "upload"; syncLoaderUI(); openFilePicker(); });
 
-    document.querySelectorAll(".view-btn").forEach((button) => {
-      button.addEventListener("click", () => setView(button.dataset.view));
-    });
-
-    document.getElementById("resetViewBtn").addEventListener("click", () => {
-      searchQuery = "";
-      searchInput.value = "";
-      selectedNodeId = null;
-      buildFilters();
-      applyFilters();
-      fitGraph(200);
-      document.getElementById("sidePanel").classList.remove("open");
-    });
-
-    document.getElementById("openLoaderBtn").addEventListener("click", () => {
-      showDropOverlay();
-    });
-
-    document
-      .getElementById("closeOverlayBtn")
-      .addEventListener("click", () => hideDropOverlay());
-
-    sourceModeSwitch.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-source-mode]");
-      if (!button) return;
-      sourceMode = button.dataset.sourceMode;
-      syncLoaderUI();
-      setLoaderStatus("");
-    });
-
-    credentialModeSwitch.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-credential-mode]");
-      if (!button) return;
-      credentialMode = button.dataset.credentialMode;
-      syncLoaderUI();
-      setLoaderStatus("");
-    });
-
-    function updateSelectedFileName(file = null) {
-      selectedFileName.textContent = file
-        ? `Selected: ${file.name}`
-        : "No file selected yet.";
-    }
-
-    function openFilePicker() {
-      document.getElementById("fileInput").click();
-    }
-
-    document.getElementById("chooseJsonBtn").addEventListener("click", () => {
-      sourceMode = "upload";
-      syncLoaderUI();
-      openFilePicker();
-    });
-
-    secondaryUploadBtn.addEventListener("click", () => {
-      sourceMode = "upload";
-      syncLoaderUI();
-      openFilePicker();
+    downloadGraphBtn.addEventListener("click", () => {
+      if (!graphData) return;
+      const blob = new Blob([JSON.stringify(graphData, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob); const a = document.createElement("a");
+      const repoName = (repoContext?.full_name || graphData?.repository || "graph").replace(/[\/\.]/g, "_");
+      a.href = url; a.download = `${repoName}_graph.json`; a.click(); URL.revokeObjectURL(url);
     });
 
     primaryLoadBtn.addEventListener("click", async () => {
-      if (sourceMode === "upload") {
-        if (selectedUploadFile) {
-          loadFile(selectedUploadFile);
-        } else {
-          openFilePicker();
-        }
-        return;
-      }
+      if (sourceMode === "upload") { if (selectedUploadFile) loadFile(selectedUploadFile); else openFilePicker(); return; }
       await loadGraphFromGitHub();
     });
 
-    document
-      .getElementById("fileInput")
-      .addEventListener("change", (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
-        selectedUploadFile = file;
-        updateSelectedFileName(file);
-        if (sourceMode === "upload") {
-          loadFile(file);
-        }
-      });
+    document.getElementById("fileInput").addEventListener("change", e => {
+      const file = e.target.files[0]; if (!file) return;
+      selectedUploadFile = file; updateSelectedFileName(file);
+      if (sourceMode === "upload") loadFile(file);
+    });
 
     function loadFile(file) {
-      const reader = new FileReader();
-      setLoaderStatus(`Loading ${file.name}…`);
-      reader.onload = (event) => {
+      const reader = new FileReader(); setLoaderStatus(`Loading ${file.name}…`);
+      reader.onload = e => {
         try {
-          const data = JSON.parse(event.target.result);
-          if (data.nodes && data.edges) {
-            repoContext = null;
-            initGraph(data, null);
-            setLoaderStatus(`Loaded ${file.name}.`, "success");
-          } else {
-            setLoaderStatus(
-              "Invalid graph JSON — expected an object with nodes and edges.",
-              "error"
-            );
-          }
-        } catch (error) {
-          setLoaderStatus(`Failed to parse JSON: ${error.message}`, "error");
-        }
+          const data = JSON.parse(e.target.result);
+          if (data.nodes && data.edges) { repoContext = null; currentGraphOrigin = "file"; initGraph(data, null); setLoaderStatus(`Loaded ${file.name}.`, "success"); }
+          else setLoaderStatus("Invalid graph JSON — expected an object with nodes and edges.", "error");
+        } catch (err) { setLoaderStatus(`Failed to parse JSON: ${err.message}`, "error"); }
       };
       reader.readAsText(file);
     }
 
     async function loadGraphFromGitHub() {
-      if (!backendAvailable) {
-        setLoaderStatus(
-          "GitHub loading needs the local backend. Run `python3 web_app.py`, then reload this page.",
-          "warn"
-        );
-        return;
-      }
-
+      if (!backendAvailable) { setLoaderStatus("GitHub loading needs the local backend. Run `python3 web_app.py`, then reload this page.", "warn"); return; }
       const repo = repoInput.value.trim();
-      if (!repo) {
-        setLoaderStatus(
-          "Enter a GitHub repository in owner/repo format or paste its URL.",
-          "error"
-        );
-        return;
-      }
-
+      if (!repo) { setLoaderStatus("Enter a GitHub repository in owner/repo format or paste its URL.", "error"); return; }
       const maxFiles = Number(maxFilesInput.value || 250);
-      const payload = {
-        repo,
-        credential_mode: credentialMode,
-        max_files: Number.isFinite(maxFiles) ? maxFiles : 250,
-        include_ai_summary: includeAiCheckbox.checked,
-      };
-
-      if (credentialMode === "user") {
-        payload.github_token = githubTokenInput.value.trim();
-        payload.deepseek_key = deepseekKeyInput.value.trim();
-      }
-
-      primaryLoadBtn.disabled = true;
-      primaryLoadBtn.textContent = "Building…";
-      setLoaderStatus(`Building graph for ${repo}…`);
-
+      const payload = { repo, credential_mode: credentialMode, max_files: Number.isFinite(maxFiles) ? maxFiles : 250, include_ai_summary: includeAiCheckbox.checked };
+      if (credentialMode === "user") { payload.github_token = githubTokenInput.value.trim(); payload.deepseek_key = deepseekKeyInput.value.trim(); }
+      primaryLoadBtn.disabled = true; primaryLoadBtn.textContent = "Building…"; setLoaderStatus(`Building graph for ${repo}…`);
       try {
-        const response = await fetch("/api/repo-graph", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-        const responsePayload = await response.json();
-        if (!response.ok) {
-          throw new Error(responsePayload.error || `HTTP ${response.status}`);
-        }
-        initGraph(responsePayload.graph, responsePayload.repo || null);
-        setLoaderStatus(`Loaded ${repo}.`, "success");
-      } catch (error) {
-        setLoaderStatus(error.message || "Failed to build graph.", "error");
-      } finally {
-        primaryLoadBtn.disabled = false;
-        primaryLoadBtn.textContent =
-          sourceMode === "repo" ? "Build from GitHub" : "Load Selected JSON";
-      }
+        const res = await fetch("/api/repo-graph", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        const p = await res.json();
+        if (!res.ok) throw new Error(p.error || `HTTP ${res.status}`);
+        currentGraphOrigin = "repo"; initGraph(p.graph, p.repo || null); setLoaderStatus(`Loaded ${repo}.`, "success");
+      } catch (err) { setLoaderStatus(err.message || "Failed to build graph.", "error"); }
+      finally { primaryLoadBtn.disabled = false; primaryLoadBtn.textContent = sourceMode === "repo" ? "Build from GitHub" : "Load Selected JSON"; }
     }
 
-    document.body.addEventListener("dragover", (event) => {
-      event.preventDefault();
-      showDropOverlay();
-    });
-
-    document.body.addEventListener("dragleave", (event) => {
-      if (event.relatedTarget === null) hideDropOverlay();
-    });
-
-    document.body.addEventListener("drop", (event) => {
-      event.preventDefault();
-      const file = event.dataTransfer.files[0];
-      if (file) {
-        sourceMode = "upload";
-        selectedUploadFile = file;
-        updateSelectedFileName(file);
-        loadFile(file);
-      }
-    });
+    document.body.addEventListener("dragover", e => { e.preventDefault(); showDropOverlay(); });
+    document.body.addEventListener("dragleave", e => { if (e.relatedTarget === null) hideDropOverlay(); });
+    document.body.addEventListener("drop", e => { e.preventDefault(); const file = e.dataTransfer.files[0]; if (file) { sourceMode = "upload"; selectedUploadFile = file; updateSelectedFileName(file); loadFile(file); } });
 
     const urlParams = new URLSearchParams(window.location.search);
     const graphUrl = urlParams.get("url");
-    if (graphUrl) {
-      fetch(graphUrl)
-        .then((response) => response.json())
-        .then((data) => initGraph(data, null))
-        .catch((error) => console.error("Failed to load:", error));
-    }
+    if (graphUrl) { fetch(graphUrl).then(r => r.json()).then(d => initGraph(d, null)).catch(console.error); }
 
-    fetchServerConfig();
-    syncLoaderUI();
-    updateSelectedFileName();
-
-    setTimeout(() => {
-      if (!graphData) showDropOverlay();
-    }, 500);
+    fetchServerConfig(); syncLoaderUI(); updateSelectedFileName();
+    setTimeout(() => { if (!graphData) showDropOverlay(); }, 500);
   </script>
 </body>
 

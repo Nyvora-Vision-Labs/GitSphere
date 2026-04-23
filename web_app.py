@@ -101,6 +101,99 @@ def generate_everything():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/api/explain-relationship', methods=['POST'])
+def explain_relationship():
+    try:
+        payload = request.json
+        source_node = payload.get("source_node")
+        target_node = payload.get("target_node")
+        edge = payload.get("edge")
+        deepseek_key = payload.get("deepseek_key") or os.environ.get("DEEPSEEK_API_KEY")
+        repo_context = payload.get("repo_context", "")
+
+        if not source_node or not target_node or not edge:
+            return jsonify({"error": "Source, target, and edge data are required."}), 400
+        
+        if not deepseek_key:
+            return jsonify({"error": "DeepSeek API key is required for relationship analysis."}), 401
+
+        from features import explain_relationship_with_ai
+        explanation = explain_relationship_with_ai(
+            source_node, target_node, edge, 
+            repo_context_summary=str(repo_context), 
+            api_key=deepseek_key
+        )
+
+        return jsonify({"explanation": explanation})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/explain-node', methods=['POST'])
+def explain_node():
+    try:
+        payload = request.json
+        node = payload.get("node")
+        deepseek_key = payload.get("deepseek_key") or os.environ.get("DEEPSEEK_API_KEY")
+        github_token = payload.get("github_token") or os.environ.get("GITHUB_TOKEN")
+        repo_ctx = payload.get("repo_context")
+        
+        if not node:
+            return jsonify({"error": "Node data is required."}), 400
+        if not deepseek_key:
+            return jsonify({"error": "DeepSeek API key is required."}), 401
+
+        file_content = ""
+        node_id = node.get("id", "")
+        
+        # 1. Try fetching from GitHub if context is available
+        if repo_ctx and "full_name" in repo_ctx:
+            import requests, base64
+            owner_repo = repo_ctx["full_name"]
+            url = f"https://api.github.com/repos/{owner_repo}/contents/{node_id}"
+            headers = {"Accept": "application/vnd.github.v3+json"}
+            if github_token:
+                headers["Authorization"] = f"token {github_token}"
+            
+            try:
+                r = requests.get(url, headers=headers)
+                if r.ok:
+                    data = r.json()
+                    if data.get("content"):
+                        file_content = base64.b64decode(data["content"]).decode("utf-8", errors="replace")
+            except: pass
+
+        # 2. Try local disk fallback if not GitHub or GitHub failed
+        if not file_content and os.path.exists(node_id) and os.path.isfile(node_id):
+            try:
+                with open(node_id, "r", encoding="utf-8", errors="replace") as f:
+                    file_content = f.read()
+            except: pass
+
+        from features import explain_node_with_ai
+        explanation = explain_node_with_ai(
+            node, 
+            repo_context_summary=str(repo_ctx or ""), 
+            api_key=deepseek_key,
+            file_content=file_content
+        )
+        return jsonify({"explanation": explanation})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/simplify-explanation', methods=['POST'])
+def simplify_explanation():
+    try:
+        payload = request.json
+        text = payload.get("text")
+        deepseek_key = payload.get("deepseek_key") or os.environ.get("DEEPSEEK_API_KEY")
+        if not text:
+            return jsonify({"error": "Text is required."}), 400
+        from features import simplify_explanation_with_ai
+        explanation = simplify_explanation_with_ai(text, api_key=deepseek_key)
+        return jsonify({"explanation": explanation})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == "__main__":
     print("🌐 Repo-Vector-Base Flask app running at http://127.0.0.1:8000")
     app.run(port=8000, debug=True)
