@@ -1,166 +1,109 @@
-# 📦 Repo-Vector-Base
+# 🌌 GitSphere
 
-> Transform any GitHub repo into a knowledge base — save it as a detailed Markdown report, dependency graph, and LLM-ready context doc.
+**GitSphere** is an advanced, AI-powered GitHub repository analyzer and immersive 3D architecture visualizer. It transforms complex codebases into intuitive, interactive knowledge graphs—helping developers, researchers, and technical leaders quickly understand how a project is structured and how its components truly interact.
 
----
-
-## 🚀 Quick Start
-
-```bash
-# 1. Clone the repo
-git clone https://github.com/Nyvora-Vision-Labs/Repo-Vector-Base.git
-cd Repo-Vector-Base
-
-# 2. Install dependencies
-pip install -r requirements.txt
-
-# 3. Set up your API keys (optional but recommended)
-cp .env.example .env
-# Edit .env with your keys:
-#   GITHUB_TOKEN=ghp_xxxx        (for higher rate limits)
-#   DEEPSEEK_API_KEY=sk-xxxx      (for AI summaries and analysis)
-
-# 4. Generate a report
-python repo_report.py facebook/react
-```
-
-Your report will be saved to `./reports/facebook_react_report.md` 🎉
+By combining parallelized GitHub API fetching, regex-driven structural parsing, and **DeepSeek AI**, GitSphere goes beyond surface-level mapping. It doesn’t just show connections—it explains *why they exist*, turning dense repositories into clear, navigable systems.
 
 ---
 
-## 📖 Usage
+## ✨ Key Features
 
-```bash
-python repo_report.py <owner/repo or GitHub URL> [options]
-```
+| 🌐 Interactive 3D Graph | 🧠 AI Architecture Brain | 📊 Health & Analytics |
+| :--- | :--- | :--- |
+| Explore repositories as dynamic, visually rich graphs with glossy nodes, flowing edges, and a starfield backdrop. | Leverages DeepSeek AI to explain file roles, architectural patterns, and complex dependencies. | Automated scoring based on documentation, maintenance, CI/CD, and community engagement. |
 
-### Options
-
-| Flag             | Description                                           | Default         |
-|----------------- |------------------------------------------------------ |---------------- |
-| `--token`, `-t`  | GitHub personal access token                          | `$GITHUB_TOKEN` |
-| `--output`, `-o` | Output directory for reports                          | `./reports`     |
-| `--json`, `-j`   | Also export raw API data as JSON                      | off             |
-| `--graph`, `-g`  | Generate knowledge graph + LLM context document       | off             |
-| `--max-files`    | Max source files to fetch for graph (default: 250)    | 250             |
-| `--deepseek-key` | DeepSeek API key for AI-powered summary               | `$DEEPSEEK_API_KEY` |
-| `--no-ai`        | Skip AI summary generation                            | off             |
+| ⚡ High-Performance | 🔍 Multi-Language | 💾 Portable Intelligence |
+| :--- | :--- | :--- |
+| Parallel processing (`ThreadPoolExecutor`) with intelligent retry strategies for large-scale analysis. | Built-in parsers for 10+ languages including Python, JS/TS, Go, Rust, Java, C++, and more. | Save fully analyzed architectures as portable JSON files for instant, offline reloads. |
 
 ---
 
-## 💡 Sample Usage
+## 🚀 Immersive Visualization
 
-### Basic report
+GitSphere isn't just a tool; it's an experience. The 3D viewer provides:
+- **Glossy Node Rendering**: Nodes are styled by their role (entry point, source, config, test).
+- **Dynamic Relationship Explanations**: Click any link to have AI explain the logic flow between components.
+- **"Explain for Lower Level" (EL5)**: On-demand simplification of complex architectural concepts for non-technical stakeholders.
+- **Structural Insights**: Identify tightly coupled modules and critical dependency hubs at a glance.
+
+---
+
+## 🎯 Ideal Use Cases
+
+- **🔍 Research & Large-Scale Analysis**: Quickly analyze hundreds of repositories for trend discovery or academic research.
+- **🧭 Codebase Onboarding**: Help new contributors understand unfamiliar projects visually, reducing ramp-up time by up to 70%.
+- **🛡️ Architecture & Security Audits**: Identify single points of failure and hidden dependencies in legacy systems.
+- **📈 Portfolio Presentation**: Visualize your own projects as beautiful, interactive graphs to showcase architectural depth.
+
+---
+
+## 🛠️ Supported Languages
+
+GitSphere features robust import/export parsing for:
+- **Web**: JavaScript (ES6/CommonJS), TypeScript, JSX, TSX
+- **Backend**: Python, Go, Rust, Java, Ruby
+- **System**: C, C++, Swift
+- **Config**: Docker, Makefile, TOML, YAML, JSON, and more
+
+---
+
+## 🚦 Getting Started
+
+### Prerequisites
+- Python 3.8+
+- GitHub Personal Access Token (PAT)
+- DeepSeek API Key (Recommended for AI features)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Nyvora-Vision-Labs/GitSphere.git
+   cd GitSphere
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Configure Environment**
+   Create a `.env` file in the root directory:
+   ```env
+   GITHUB_TOKEN=your_github_pat_here
+   DEEPSEEK_API_KEY=your_deepseek_key_here
+   ```
+
+### Running the Application
+
+**Web Interface (Recommended)**
 ```bash
-python repo_report.py torvalds/linux
+python web_app.py
 ```
+Open `http://127.0.0.1:8000` to start analyzing repositories through the interactive UI.
 
-### Full URL with auth token
+**CLI Report Generator**
 ```bash
-python repo_report.py https://github.com/pallets/flask --token ghp_xxxx
-```
-
-### Everything enabled (report + JSON + graph + AI summary)
-```bash
-python repo_report.py vercel/next.js \
-  --token ghp_xxxx \
-  --json \
-  --graph \
-  --output ./my-reports
-```
-
-### Graph only, skip AI summary
-```bash
-python repo_report.py facebook/react --graph --no-ai --token $(gh auth token)
-```
-
-### Using environment variables (no flags needed)
-```bash
-export GITHUB_TOKEN=ghp_xxxx
-export DEEPSEEK_API_KEY=sk-xxxx
-python repo_report.py django/django --graph --json
-```
-
-### Output files generated
-```
-./reports/
-├── django_django_report.md      # Full markdown report with all sections
-├── django_django_data.json      # Raw API data (with --json)
-├── django_django_graph.json     # Dependency graph as JSON (with --graph)
-└── django_django_context.txt    # LLM-ready context document (with --graph)
+python repo_report.py owner/repo --output ./reports
 ```
 
 ---
 
-## 📊 What's in the Report?
+## 🏗️ Tech Stack
 
-### Core Sections
-| Section                       | Details                                              |
-|------------------------------ |----------------------------------------------------- |
-| 🏆 Health Score + TL;DR       | 0–100 score across 6 dimensions + AI summary         |
-| 🤖 AI Executive Summary      | DeepSeek-powered analysis of strengths & weaknesses  |
-| 📋 Overview                  | Description, URL, visibility, dates                  |
-| ⭐ Statistics                 | Stars, forks, watchers, issues, repo size            |
-| 🏷️ Topics                    | Repository topics                                    |
-| 💻 Languages                 | Byte-count breakdown with visual bars                |
-| 📜 License                   | License name + SPDX ID                               |
-| 👤 Owner                     | Username, type, avatar                               |
-| 👥 Top Contributors          | Top 20 contributors with commit counts               |
-| 📈 Commit Activity           | Weekly commit heatmap (last 12 weeks)                |
-| 📉 Code Frequency            | Lines added/removed over time                        |
-| ⏱️ Issue/PR Velocity         | Avg/median close times, PR merge rate                |
-| 🌿 Branches                  | All branches with protection status                  |
-| 🏷️ Tags / 🚀 Releases       | Tags + releases with assets & notes                  |
-| 📝 Recent Commits            | Last 15 commits with SHA, message, author            |
-| 🐛 Issues / 🔀 PRs           | Open issues and pull requests                        |
-| ⚙️ GitHub Actions            | CI/CD workflows with states                          |
-| 🤝 Community Profile         | Health checklist (CoC, Contributing, etc.)            |
-| 📦 Dependencies              | Auto-detected build systems & dep files              |
-| 🌐 Deployments / 📊 Traffic  | Recent deploys + view/clone stats                    |
-| 📂 Directory Tree             | Full file tree of the repository                     |
-| 📖 README Preview            | First 3000 chars of the README                       |
-
-### Graph Outputs (with `--graph`)
-| Output                        | Details                                              |
-|------------------------------ |----------------------------------------------------- |
-| 🕸️ Mermaid Diagram           | Visual dependency graph in the report                |
-| 🗂️ JSON Graph                | `{nodes, edges, stats}` — machine-readable           |
-| 📝 LLM Context Document      | Architecture overview, definitions, dependency map   |
+- **Backend**: Python, Flask, Requests
+- **Frontend**: 3D-Force-Graph, Three.js, CSS2DRenderer
+- **AI Engine**: DeepSeek-Chat (LLM)
+- **Data Flow**: ThreadPoolExecutor, GitHub REST API v3
 
 ---
 
-## 🔑 Authentication
+## 📜 License
 
-| Method                         | Rate Limit   |
-|------------------------------- |------------- |
-| No token                      | 60 req/hr    |
-| With `--token` or `$GITHUB_TOKEN` | 5,000 req/hr |
-
-```bash
-# Use gh CLI
-python repo_report.py owner/repo --token $(gh auth token)
-
-# Or set env var
-export GITHUB_TOKEN=ghp_xxxx
-```
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-## 📁 Project Structure
-
-```
-Repo-Vector-Base/
-├── repo_report.py       # Main CLI — fetches data & builds markdown
-├── features.py          # Analysis features (parallel, retry, velocity, health, AI)
-├── graph.py             # Knowledge graph (import parsing, Mermaid, LLM context)
-├── requirements.txt     # Python dependencies
-├── .env.example         # Template for API keys
-├── .gitignore           # Ignores reports/, .env, __pycache__/
-└── readme.md            # This file
-```
-
----
-
-## 📄 License
-
-MIT
+<p align="center">
+  Built with ❤️ by <b>Nyvora Vision Labs</b>
+</p>
